@@ -1,0 +1,145 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre de la Página - Vórtice</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/interior.css">
+</head>
+<body>
+
+
+    <aside id="menu-accesibilidad" class="accessibility-panel">
+        <div class="a11y-header">
+            <button id="btn-cerrar-a11y" class="a11y-close-btn" aria-label="Cerrar menú">&times;</button>
+            <h3 class="text-white m-0 fs-5">Menú Accesibilidad</h3>
+        </div>
+        <div class="a11y-content">
+            <button id="a11y-reset" class="a11y-btn a11y-reset-btn">
+                <i class="bi bi-arrow-counterclockwise"></i> Restablecer
+            </button>
+            
+            <button id="a11y-grayscale" class="a11y-btn"><i class="bi bi-circle-half"></i> Cambiar escala de grises</button>
+            <button id="a11y-reader" class="a11y-btn"><i class="bi bi-volume-up"></i> Usar lector de pantalla</button>
+            <button id="a11y-cursor" class="a11y-btn"><i class="bi bi-cursor-fill"></i> Cambiar tamaño de cursor</button>
+            <button id="a11y-contrast" class="a11y-btn"><i class="bi bi-brightness-high"></i> Cambiar el contraste</button>
+            <button id="a11y-mask" class="a11y-btn"><i class="bi bi-segmented-nav"></i> Máscara de lectura</button>
+            <button id="a11y-guide" class="a11y-btn"><i class="bi bi-distribute-vertical"></i> Guía de lectura</button>
+            <button id="a11y-dyslexia" class="a11y-btn"><i class="bi bi-type"></i> Tipografía para dislexia</button>
+            <button id="a11y-v-spacing" class="a11y-btn"><i class="bi bi-arrows-expand"></i> Espaciado vertical</button>
+            <button id="a11y-h-spacing" class="a11y-btn"><i class="bi bi-arrows-expand-vertical" style="transform: rotate(90deg);"></i> Espaciado horizontal</button>
+            
+            <div class="a11y-text-size-controls">
+                <button id="a11y-text-minus" class="a11y-btn w-50"><i class="bi bi-dash"></i> Texto</button>
+                <button id="a11y-text-plus" class="a11y-btn w-50"><i class="bi bi-plus"></i> Texto</button>
+            </div>
+            
+            <button id="a11y-links" class="a11y-btn"><i class="bi bi-link-45deg"></i> Resaltar Enlaces</button>
+        </div>
+    </aside>
+
+    <div id="a11y-reading-guide" class="d-none"></div>
+    <div id="a11y-reading-mask-top" class="d-none"></div>
+    <div id="a11y-reading-mask-bottom" class="d-none"></div>
+
+
+
+
+    <header class="main-header" id="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../recursos/imagenes/vortice.png" alt="Logo Vórtice" onerror="this.src='https://via.placeholder.com/150x45?text=VORTICE'">
+            </a>
+        </div>
+
+        <div class="nav-controls d-flex align-items-center flex-row gap-4">
+            <button class="icon-btn accessibility-btn" aria-label="Opciones de accesibilidad">
+                <img src="../recursos/imagenes/accesibilidad.png" alt="Accesibilidad" onerror="this.src='https://via.placeholder.com/34x34?text=Acc'">
+            </button>
+
+            <div class="menu-container position-relative d-flex align-items-center">
+                <button class="icon-btn menu-toggle-btn" id="menuToggle" aria-label="Abrir menú"></button>
+
+                <nav class="dropdown-menu-custom">
+                    <ul class="m-0 p-3 list-unstyled">
+                        <li><a href="../index.html">Inicio</a></li>
+                        <li><a href="../paginas/eventos.html">Eventos</a></li>
+                        <li><a href="../paginas/ludoteca.html">Ludoteca</a></li>
+                        <li><a href="../paginas/talleres.html">Talleres</a></li>
+                        <li><a href="../paginas/biblioteca.html">Biblioteca</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-vh-100 bg-light py-5">
+        <div class="container">
+            
+            <div class="text-center mb-5">
+                <h1 class="section-title text-start mb-4">Título de la Sección</h1>
+                <p class="text-secondary fs-5">Aquí irá el contenido específico de Ludoteca, Talento, Eventos, etc.</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-4 shadow-sm">
+                <h3>Contenido dinámico...</h3>
+            </div>
+
+        </div>
+    </main>
+    <footer class="bg-vino text-white py-5" id="footer-principal">
+        <div class="container">
+            <div class="row gy-4 mb-5">
+                <div class="col-lg-5 col-md-12 pe-lg-5">
+                    <img src="recursos/imagenes/vortice.png" alt="Logo Vórtice" style="max-height: 50px;" class="mb-3" onerror="this.src='https://via.placeholder.com/150x45/ffffff/5e1b33?text=VORTICE'">
+                    <p class="text-white-50">La Plataforma de Cultura del Agua dedicada a la concientización, educación y difusión de proyectos para la preservación de nuestro recurso más valioso.</p>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-teal fs-5 fw-bold mb-3">Navegación</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="index.html#inicio" class="text-white text-decoration-none mb-2 d-inline-block">Inicio</a></li>
+                        <li><a href="index.html#eventos" class="text-white text-decoration-none mb-2 d-inline-block">Eventos y Noticias</a></li>
+                        <li><a href="index.html#ludoteca" class="text-white text-decoration-none mb-2 d-inline-block">Ludoteca Interactiva</a></li>
+                        <li><a href="index.html#talento" class="text-white text-decoration-none mb-2 d-inline-block">Plataforma Talento</a></li>
+                        <li><a href="index.html#biblioteca" class="text-white text-decoration-none mb-2 d-inline-block">Biblioteca Digital</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="text-teal fs-5 fw-bold mb-3">Contacto Legal</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Aviso de Privacidad</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Términos y Condiciones</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Directorio Institucional</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Soporte Técnico</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row border-top border-secondary pt-4 text-white-50 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <small>&copy; 2026 Vórtice - Plataforma de Cultura del Agua. Todos los derechos reservados.</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="https://www.facebook.com/conaguamx" target="_blank" rel="noopener noreferrer"> <img alt="Facebook" src="https://framework-gb.cdn.gob.mx/landing/img/facebook.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://x.com/conagua_mx" target="_blank" rel="noopener noreferrer"> <img alt="X" src="https://framework-gb.cdn.gob.mx/landing/img/twitter.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://www.instagram.com/conaguamx/" target="_blank" rel="noopener noreferrer"> <img alt="Instagram" src="https://framework-gb.cdn.gob.mx/landing/img/instagram.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://www.youtube.com/@conagua_mx" target="_blank" rel="noopener noreferrer"> <img alt="Youtube" src="https://framework-gb.cdn.gob.mx/landing/img/youtube.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="../js/scripts.js"></script>
+    <script src="../js/interior.js"></script>
+
+</body>
+</html> 

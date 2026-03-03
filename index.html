@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vórtice - Plataforma de Cultura del Agua</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+    <aside id="menu-accesibilidad" class="accessibility-panel">
+        <div class="a11y-header">
+            <button id="btn-cerrar-a11y" class="a11y-close-btn" aria-label="Cerrar menú">&times;</button>
+            <h3 class="text-white m-0 fs-5">Menú Accesibilidad</h3>
+        </div>
+        <div class="a11y-content">
+            <button id="a11y-reset" class="a11y-btn a11y-reset-btn"><i class="bi bi-arrow-counterclockwise"></i> Restablecer</button>
+            <button id="a11y-grayscale" class="a11y-btn"><i class="bi bi-circle-half"></i> Cambiar escala de grises</button>
+            <button id="a11y-reader" class="a11y-btn"><i class="bi bi-volume-up"></i> Usar lector de pantalla</button>
+            <button id="a11y-cursor" class="a11y-btn"><i class="bi bi-cursor-fill"></i> Cambiar tamaño de cursor</button>
+            <button id="a11y-contrast" class="a11y-btn"><i class="bi bi-brightness-high"></i> Cambiar el contraste</button>
+            <button id="a11y-mask" class="a11y-btn"><i class="bi bi-segmented-nav"></i> Máscara de lectura</button>
+            <button id="a11y-guide" class="a11y-btn"><i class="bi bi-distribute-vertical"></i> Guía de lectura</button>
+            <button id="a11y-dyslexia" class="a11y-btn"><i class="bi bi-type"></i> Tipografía para dislexia</button>
+            <button id="a11y-v-spacing" class="a11y-btn"><i class="bi bi-arrows-expand"></i> Espaciado vertical</button>
+            <button id="a11y-h-spacing" class="a11y-btn"><i class="bi bi-arrows-expand-vertical" style="transform: rotate(90deg);"></i> Espaciado horizontal</button>
+            <div class="a11y-text-size-controls">
+                <button id="a11y-text-minus" class="a11y-btn w-50"><i class="bi bi-dash"></i> Texto</button>
+                <button id="a11y-text-plus" class="a11y-btn w-50"><i class="bi bi-plus"></i> Texto</button>
+            </div>
+            <button id="a11y-links" class="a11y-btn"><i class="bi bi-link-45deg"></i> Resaltar Enlaces</button>
+        </div>
+    </aside>
+
+    <div id="a11y-reading-guide" class="d-none"></div>
+    <div id="a11y-reading-mask-top" class="d-none"></div>
+    <div id="a11y-reading-mask-bottom" class="d-none"></div>
+
+    <header class="main-header" id="header-principal">
+        <div class="logo-container">
+            <img src="recursos/imagenes/vortice.png" alt="Logo Vórtice" onerror="this.src='https://via.placeholder.com/150x45?text=VORTICE'">
+        </div>
+
+        <div class="nav-controls d-flex align-items-center flex-row gap-4">
+            <button class="icon-btn accessibility-btn" aria-label="Opciones de accesibilidad">
+                <img src="recursos/imagenes/accesibilidad.png" alt="Accesibilidad" onerror="this.src='https://via.placeholder.com/34x34?text=Acc'">
+            </button>
+
+            <div class="menu-container position-relative d-flex align-items-center">
+                <button class="icon-btn menu-toggle-btn" id="menuToggle" aria-label="Abrir menú"></button>
+
+                <nav class="dropdown-menu-custom">
+                    <ul class="m-0 p-3 list-unstyled">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="paginas/eventos.html">Eventos</a></li>
+                        <li><a href="paginas/ludoteca.html">Ludoteca</a></li>
+                        <li><a href="paginas/talleres.html">Talleres</a></li>
+                        <li><a href="paginas/biblioteca.html">Biblioteca</a></li>
+                        <li><a href="#acciones">Acciones y Programas</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section position-relative d-flex align-items-center" id="inicio">
+        <video class="hero-video-bg w-100 h-100 position-absolute object-fit-contain top-0 start-0" autoplay loop muted playsinline>
+            <source src="recursos/imagenes/olavortice.mp4" type="video/mp4">
+            Tu navegador no soporta videos HTML5.
+        </video>
+
+        <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 z-0"></div>
+
+        <div class="container position-relative z-1">
+            <div class="row justify-content-end align-items-center hero-row-mobile">
+                <div class="col-lg-5 col-md-8">
+                    <div class="hero-glass-card p-4 p-md-5 text-start shadow-lg">
+                        <h1 class="hero-title text-teal fw-bolder mb-3">Plataforma De<br>Cultura Del<br>Agua</h1>
+                        <p class="text-dark mb-4 fs-6 fw-medium">Bienvenido a la plataforma para la cultura y sensibilización del agua, aquí conocerás las últimas noticias y proyectos.</p>
+                        <a href="#eventos" class="btn-navegar text-decoration-none d-inline-block text-center rounded-pill">Navegar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="events-section py-5 text-center bg-light" id="eventos">
+        <div class="container-fluid">
+            <h2 class="section-title mb-5">Próximos Eventos</h2>
+            
+            <div class="carousel-wrapper mx-auto position-relative">
+                <button class="carousel-btn prev-btn shadow" id="btnPrev">‹</button>
+
+                <div class="carousel-container align-items-center" id="carouselContainer">
+                    <a href="https://www.instagram.com/festivalchapultepec/" target="_blank" rel="noopener noreferrer" class="event-card bg-white rounded-4 overflow-hidden text-start shadow-sm text-decoration-none d-block border">
+                        <div class="event-image position-relative overflow-hidden bg-light" style="height: 200px;">
+                            <img src="recursos/imagenes/aquifera.png" alt="Evento 1" class="w-100 h-100 object-fit-cover">
+                        </div>
+                        <div class="p-4">
+                            <div class="text-teal fw-bold text-uppercase small tracking-wide">MAR 22, 2026</div>
+                            <h3 class="fw-bold fs-5 my-2 color-vino">AQUIFERA: Festival del bosque de chapultepec</h3>
+                            <p class="text-secondary small mb-0 text-dark">Aprende sobre la importancia de los mantos subterráneos y cómo podemos protegerlos desde casa.</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://www.gob.mx/cms/uploads/article/main_image/154561/Infograf_a-350X220-21-marzo.jpg" target="_blank" rel="noopener noreferrer" class="event-card bg-white rounded-4 overflow-hidden text-start shadow-sm text-decoration-none d-block border">
+                        <div class="event-image position-relative overflow-hidden bg-light" style="height: 200px;">
+                            <img src="recursos/imagenes/dia-agua.png" alt="Evento 2" class="w-100 h-100 object-fit-cover">
+                        </div>
+                        <div class="p-4">
+                            <div class="text-teal fw-bold text-uppercase small tracking-wide">MAR 22, 2026</div>
+                            <h3 class="fw-bold fs-5 my-2 color-vino">Dia mundial<br>del AGUA</h3>
+                            <p class="text-secondary small mb-0 text-dark">El mundo se une para celebrar y cuidar uno de los recursos más importantes de la humanidad, sumate!.</p>
+                        </div>
+                    </a>
+
+                    <a href="https://www.gob.mx/conagua/acciones-y-programas/archivo-historico-y-biblioteca-central-del-agua-149838" target="_blank" rel="noopener noreferrer" class="event-card bg-white rounded-4 overflow-hidden text-start shadow-sm text-decoration-none d-block border">
+                        <div class="event-image position-relative overflow-hidden bg-light" style="height: 200px;">
+                            <img src="recursos/imagenes/100.png" alt="Evento 3" class="w-100 h-100 object-fit-cover">
+                        </div>
+                        <div class="p-4">
+                            <div class="text-teal fw-bold text-uppercase small tracking-wide">DIC 05, 2026</div>
+                            <h3 class="fw-bold fs-5 my-2 color-vino">100 años de la ley de irrigación en México</h3>
+                            <p class="text-secondary small mb-0 text-dark">Visita el Archivo histórico y Biblioteca central del agua donde conocerás de primera mano la gran historia que ha tenido el agua en México.</p>
+                        </div>
+                    </a>
+
+                    <a href="AQUI_VA_TU_ENLACE_4" target="_blank" rel="noopener noreferrer" class="event-card bg-white rounded-4 overflow-hidden text-start shadow-sm text-decoration-none d-block border">
+                        <div class="event-image position-relative overflow-hidden bg-light" style="height: 200px;">
+                            <img src="recursos/imagenes/hackathon.png" alt="Evento 4" class="w-100 h-100 object-fit-cover">
+                        </div>
+                        <div class="p-4">
+                            <div class="text-teal fw-bold text-uppercase small tracking-wide">ENE 15, 2027</div>
+                            <h3 class="fw-bold fs-5 my-2 color-vino">Hackathon H2O</h3>
+                            <p class="text-secondary small mb-0 text-dark">Competencia intensiva para el desarrollo de soluciones tecnológicas e innovadoras.</p>
+                        </div>
+                    </a>
+                </div>
+
+                <button class="carousel-btn next-btn shadow" id="btnNext">›</button>
+            </div>
+            
+            <a href="paginas/eventos.html" class="btn-general text-decoration-none mt-5 d-inline-block rounded-pill">Explorar todos los eventos</a>
+        </div>
+    </section>
+
+    <section class="py-5" id="ludoteca">
+        <div class="container my-5">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-md-start text-center mb-4 mb-md-0">
+                    <h2 class="section-title text-start mb-4">Ludoteca</h2>
+                    <p class="text-secondary fs-5 mb-4 pe-md-4">Un espacio interactivo y dinámico diseñado para aprender jugando. Descubre nuestros juegos, herramientas didácticas y actividades enfocadas en fomentar el cuidado del vital líquido.</p>
+                    <a href="paginas/ludoteca.html" class="btn-general text-decoration-none mt-5 d-inline-block rounded-pill">Jugar</a>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img src="recursos/imagenes/controles.png" alt="Control Remoto Ludoteca" class="img-fluid rounded-4 shadow-sm hover-scale">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-light" id="talento">
+        <div class="container max-w-custom">
+            <h2 class="section-title text-center mb-5">Talento</h2>
+            <div class="d-flex flex-column gap-3">
+                <div class="talento-item d-flex justify-content-between align-items-center bg-white p-4 rounded-3 shadow-sm border-start border-5 border-teal border">
+                    <span class="fw-bold fs-5 text-dark">El ciclo del agua en las grandes ciudades</span>
+                    <span class="badge bg-teal-light text-teal rounded-pill px-3 py-2 text-uppercase tracking-wide">Video</span>
+                </div>
+                <div class="talento-item d-flex justify-content-between align-items-center bg-white p-4 rounded-3 shadow-sm border-start border-5 border-teal border">
+                    <span class="fw-bold fs-5 text-dark">Conservación de mantos acuíferos subterráneos</span>
+                    <span class="badge bg-teal-light text-teal rounded-pill px-3 py-2 text-uppercase tracking-wide">Curso</span>
+                </div>
+                <div class="talento-item d-flex justify-content-between align-items-center bg-white p-4 rounded-3 shadow-sm border-start border-5 border-teal border">
+                    <span class="fw-bold fs-5 text-dark">Hidrología básica y aplicada: Conceptos clave</span>
+                    <span class="badge bg-teal-light text-teal rounded-pill px-3 py-2 text-uppercase tracking-wide">Revista</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 text-center" id="biblioteca">
+        <div class="container">
+            <h2 class="section-title mb-5">Biblioteca</h2>
+            <div class="row g-4 mb-5 text-start">
+                
+                <div class="col-md-4">
+                    <div class="libro-card bg-white rounded-4 p-4 text-center shadow-sm h-100 border transition-all d-flex flex-column">
+                        <img src="recursos/imagenes/lacuenca-h.png" alt="Manual de Riego" class="w-100 bg-light rounded-2 mb-3 object-fit-cover shadow-sm" style="height:250px;">
+                        <h3 class="fs-5 color-vino fw-bold mb-2">La cuenca hidrográfica:</h3>
+                        <p class="text-secondary small mb-4 flex-grow-1">unidad básica de planeación y manejo de recursos naturales.</p>
+                        <a href="recursos/Contenidos/cuenca.pdf" target="_blank" class="btn-outline-teal w-100 mt-auto text-center d-inline-block text-decoration-none">Leer Libro</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="libro-card bg-white rounded-4 p-4 text-center shadow-sm h-100 border transition-all d-flex flex-column">
+                        <img src="recursos/imagenes/GIRH.png" alt="Historia Acueductos" class="w-100 bg-light rounded-2 mb-3 object-fit-cover shadow-sm" style="height:250px;">
+                        <h3 class="fs-5 color-vino fw-bold mb-2">Guía para la aplicación de la GIRH a nivel municipal</h3>
+                        <p class="text-secondary small mb-4 flex-grow-1">Aprende los conceptos fundamentales para gestionar los recursos hídricos en tu comunidad.</p>
+                        <a href="recursos/girh.pdf" target="_blank" class="btn-outline-teal w-100 mt-auto text-center d-inline-block text-decoration-none">Leer Libro</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="libro-card bg-white rounded-4 p-4 text-center shadow-sm h-100 border transition-all d-flex flex-column">
+                        <img src="recursos/imagenes/somos-conagua.png" alt="Revista H2O" class="w-100 bg-light rounded-2 mb-3 object-fit-cover shadow-sm" style="height:250px;">
+                        <h3 class="fs-5 color-vino fw-bold mb-2">Revista Somos Conagua</h3>
+                        <p class="text-secondary small mb-4 flex-grow-1">Nuestra publicación mensual con artículos de fondo sobre innovaciones y tecnologías limpias.</p>
+                        <a href="recursos/Contenidos/Somos-Conagua-03-12-2025-1.pdf" target="_blank" class="btn-outline-teal w-100 mt-auto text-center d-inline-block text-decoration-none">Leer Libro</a>
+                    </div>
+                </div>
+
+            </div>
+            <button class="btn-general border-0 rounded-pill">Acceder a todo el Acervo</button>
+        </div>
+    </section>
+
+    <section class="py-5 bg-light" id="acciones">
+        <div class="container max-w-custom">
+            <h2 class="section-title text-center mb-5">Acciones y Programas</h2>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-white p-4 rounded-4 shadow-sm text-center hover-scale transition-all border-bottom border-5 border-teal h-100 d-flex flex-column">
+                        <img src="recursos/imagenes/post_Banner_Cultura_del_Agua_2025.jpg" alt="Operación de las Acciones de Cultura del Agua" class="w-100 bg-light rounded-2 mb-3 object-fit-cover shadow-sm" style="height:200px;" onerror="this.src='https://via.placeholder.com/400x200/e0f2f1/1e9e8f?text=Operación'">
+                        <h4 class="color-vino fw-bold mb-3 fs-5">Operación de las Acciones de Cultura del Agua</h4>
+                        <p class="text-secondary small flex-grow-1">Conoce las reglas de operación y los lineamientos para la implementación de proyectos hídricos.</p>
+                        <a href="paginas/acciones_cultura_agua.html" class="btn-outline-teal w-100 mt-3 d-inline-block text-decoration-none rounded-pill">Ver detalles</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-white p-4 rounded-4 shadow-sm text-center hover-scale transition-all border-bottom border-5 border-teal h-100 d-flex flex-column">
+                        <img src="recursos/imagenes/post_Enlaces_recomendados_CA.jpg" alt="Enlaces Recomendados" class="w-100 bg-light rounded-2 mb-3 object-fit-cover shadow-sm" style="height:200px;" onerror="this.src='https://via.placeholder.com/400x200/e0f2f1/1e9e8f?text=Enlaces'">
+                        <h4 class="color-vino fw-bold mb-3 fs-5">Enlaces Recomendados</h4>
+                        <p class="text-secondary small flex-grow-1">Descubre sitios web, herramientas y recursos oficiales para profundizar en el cuidado del agua.</p>
+                        <a href="#" class="btn-outline-teal w-100 mt-3 d-inline-block text-decoration-none rounded-pill">Ver detalles</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-white p-4 rounded-4 shadow-sm text-center hover-scale transition-all border-bottom border-5 border-teal h-100 d-flex flex-column">
+                        <img src="recursos/imagenes/post_Tips_para_el_cuidado_del_agua_CA.jpg" alt="Tips para el cuidado del Agua" class="w-100 bg-light rounded-2 mb-3 object-fit-cover shadow-sm" style="height:200px;" onerror="this.src='https://via.placeholder.com/400x200/e0f2f1/1e9e8f?text=Tips'">
+                        <h4 class="color-vino fw-bold mb-3 fs-5">Tips para el cuidado del Agua</h4>
+                        <p class="text-secondary small flex-grow-1">Consejos prácticos y sencillos para ahorrar y preservar el agua en tu hogar y comunidad.</p>
+                        <a href="#" class="btn-outline-teal w-100 mt-3 d-inline-block text-decoration-none rounded-pill">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-vino text-white py-5" id="footer-principal">
+        <div class="container">
+            <div class="row gy-4 mb-5">
+                <div class="col-lg-5 col-md-12 pe-lg-5">
+                    <img src="recursos/imagenes/vortice.png" alt="Logo Vórtice" style="max-height: 50px;" class="mb-3" onerror="this.src='https://via.placeholder.com/150x45/ffffff/5e1b33?text=VORTICE'">
+                    <p class="text-white-50">La Plataforma de Cultura del Agua dedicada a la concientización, educación y difusión de proyectos para la preservación de nuestro recurso más valioso.</p>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-teal fs-5 fw-bold mb-3">Navegación</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="#inicio" class="text-white text-decoration-none">Inicio</a></li>
+                        <li class="mb-2"><a href="paginas/eventos.html" class="text-white text-decoration-none">Eventos y Noticias</a></li>
+                        <li class="mb-2"><a href="paginas/ludoteca.html" class="text-white text-decoration-none">Ludoteca Interactiva</a></li>
+                        <li class="mb-2"><a href="paginas/talleres.html" class="text-white text-decoration-none">Plataforma Talento</a></li>
+                        <li class="mb-2"><a href="paginas/biblioteca.html" class="text-white text-decoration-none">Biblioteca Digital</a></li>
+                        <li class="mb-2"><a href="#acciones" class="text-white text-decoration-none">Acciones y Programas</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="text-teal fs-5 fw-bold mb-3">Contacto Legal</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Aviso de Privacidad</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Términos y Condiciones</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Directorio Institucional</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Soporte Técnico</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row border-top border-secondary pt-4 text-white-50 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <small>&copy; 2026 Vórtice - Plataforma de Cultura del Agua. Todos los derechos reservados.</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="https://www.facebook.com/conaguamx" target="_blank" rel="noopener noreferrer"> <img alt="Facebook" src="https://framework-gb.cdn.gob.mx/landing/img/facebook.png" style="width: 24px; height: 24px;"></a>
+                    <a href="https://x.com/conagua_mx" target="_blank" rel="noopener noreferrer"> <img alt="X" src="https://framework-gb.cdn.gob.mx/landing/img/twitter.png" style="width: 24px; height: 24px;"></a>
+                    <a href="https://www.instagram.com/conaguamx/" target="_blank" rel="noopener noreferrer"> <img alt="Instagram" src="https://framework-gb.cdn.gob.mx/landing/img/instagram.png" style="width: 24px; height: 24px;"></a>
+                    <a href="https://www.youtube.com/@conagua_mx" target="_blank" rel="noopener noreferrer"> <img alt="Youtube" src="https://framework-gb.cdn.gob.mx/landing/img/youtube.png" style="width: 24px; height: 24px;"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
