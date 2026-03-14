@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultura del Agua - Vórtice</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/interior.css">
+
+    <style>
+        /* Estilos exclusivos para tarjetas de documentos (Minimalismo) */
+        .doc-card {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+        }
+        .doc-card:hover {
+            border-color: var(--color-teal);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        .doc-icon {
+            width: 48px; height: 48px;
+            background: #e0f2f1; /* Fondo teal claro */
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--color-teal);
+            font-size: 1.5rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .doc-card:hover .doc-icon {
+            background: var(--color-teal);
+            color: #fff;
+        }
+        .doc-title {
+            font-size: 0.95rem;
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <aside id="menu-accesibilidad" class="accessibility-panel">
+        <div class="a11y-header">
+            <button id="btn-cerrar-a11y" class="a11y-close-btn" aria-label="Cerrar menú">&times;</button>
+            <h3 class="text-white m-0 fs-5">Menú Accesibilidad</h3>
+        </div>
+        <div class="a11y-content">
+            <button id="a11y-reset" class="a11y-btn a11y-reset-btn"><i class="bi bi-arrow-counterclockwise"></i> Restablecer</button>
+            <button id="a11y-grayscale" class="a11y-btn"><i class="bi bi-circle-half"></i> Cambiar escala de grises</button>
+            <button id="a11y-reader" class="a11y-btn"><i class="bi bi-volume-up"></i> Usar lector de pantalla</button>
+            <button id="a11y-cursor" class="a11y-btn"><i class="bi bi-cursor-fill"></i> Cambiar tamaño de cursor</button>
+            <button id="a11y-contrast" class="a11y-btn"><i class="bi bi-brightness-high"></i> Cambiar el contraste</button>
+            <button id="a11y-mask" class="a11y-btn"><i class="bi bi-segmented-nav"></i> Máscara de lectura</button>
+            <button id="a11y-guide" class="a11y-btn"><i class="bi bi-distribute-vertical"></i> Guía de lectura</button>
+            <button id="a11y-dyslexia" class="a11y-btn"><i class="bi bi-type"></i> Tipografía para dislexia</button>
+            <button id="a11y-v-spacing" class="a11y-btn"><i class="bi bi-arrows-expand"></i> Espaciado vertical</button>
+            <button id="a11y-h-spacing" class="a11y-btn"><i class="bi bi-arrows-expand-vertical" style="transform: rotate(90deg);"></i> Espaciado horizontal</button>
+            <div class="a11y-text-size-controls">
+                <button id="a11y-text-minus" class="a11y-btn w-50"><i class="bi bi-dash"></i> Texto</button>
+                <button id="a11y-text-plus" class="a11y-btn w-50"><i class="bi bi-plus"></i> Texto</button>
+            </div>
+            <button id="a11y-links" class="a11y-btn"><i class="bi bi-link-45deg"></i> Resaltar Enlaces</button>
+        </div>
+    </aside>
+
+    <header class="main-header" id="header-principal">
+        <div class="logo-container">
+            <a href="../index.html"><img src="../recursos/imagenes/vortice.png" alt="Logo Vórtice" onerror="this.src='https://via.placeholder.com/150x45?text=VORTICE'"></a>
+        </div>
+        <div class="nav-controls d-flex align-items-center flex-row gap-4">
+            <button class="icon-btn accessibility-btn" aria-label="Opciones de accesibilidad">
+                <img src="../recursos/imagenes/accesibilidad.png" alt="Accesibilidad" onerror="this.src='https://via.placeholder.com/34x34?text=Acc'">
+            </button>
+            <div class="menu-container position-relative d-flex align-items-center">
+                <button class="icon-btn menu-toggle-btn" id="menuToggle" aria-label="Abrir menú"></button>
+                <nav class="dropdown-menu-custom">
+                    <ul class="m-0 p-3 list-unstyled">
+                        <li><a href="../index.html">Inicio</a></li>
+                        <li><a href="../index.html#acciones">Acciones y Programas</a></li>
+                        <li><a href="eventos.html">Eventos</a></li>
+                        <li><a href="ludoteca.html">Ludoteca</a></li>
+                        <li><a href="talleres.html">Talleres</a></li>
+                        <li><a href="biblioteca.html">Biblioteca</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-vh-100 py-5">
+        
+        <div class="container mb-5">
+            <div class="bg-vino rounded-4 p-4 p-md-5 text-white shadow-sm position-relative overflow-hidden d-flex flex-column flex-md-row align-items-center justify-content-between gap-4">
+                
+                <div class="z-1 text-center text-md-start" style="max-width: 700px;">
+                    <span class="badge bg-teal text-white rounded-pill px-3 py-2 mb-3 tracking-wide" style="font-family: 'Noto Sans', sans-serif;">PROGRAMA ESTRATÉGICO</span>
+                    <h1 class="fw-bolder mb-3 display-5" style="font-family: 'patria', sans-serif;">Cultura del Agua</h1>
+                    <p class="fs-5 text-white-50 mb-0" style="font-family: 'Noto Sans', sans-serif; line-height: 1.6;">
+                        Respecto a las acciones en materia de Cultura del agua es: Fomentar y promover la educación, capacitación y participación social para fortalecer la gobernanza hacia la sustentabilidad ambiental, con el agua como eje transversal.
+                    </p>
+                </div>
+
+                <div class="d-none d-md-block flex-shrink-0 z-1">
+                    <i class="bi bi-droplet-half text-white opacity-25" style="font-size: 8rem;"></i>
+                </div>
+                
+                <div class="position-absolute w-100 h-100 top-0 start-0" style="background: radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%); pointer-events: none;"></div>
+            </div>
+        </div>
+
+        <div class="container max-w-custom">
+            
+            <section class="mb-5 pb-5 border-bottom border-2">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="bi bi-shield-check fs-2 text-teal me-3"></i>
+                    <h2 class="section-title m-0">Contraloría Social</h2>
+                </div>
+                
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="recursos/docs/esquema.pdf" data-title="Esquema E005"><div class="doc-icon"><i class="bi bi-file-earmark-pdf"></i></div><div class="fw-bold color-vino doc-title">Esquema E005</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="recursos/docs/guia.pdf" data-title="Guía operativa E005"><div class="doc-icon"><i class="bi bi-file-earmark-pdf"></i></div><div class="fw-bold color-vino doc-title">Guía operativa E005</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="recursos/docs/acta.pdf" data-title="Acta de Constitución Comité"><div class="doc-icon"><i class="bi bi-file-earmark-pdf"></i></div><div class="fw-bold color-vino doc-title">Acta de Constitución Comité de CS E005</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="recursos/docs/minuta.pdf" data-title="Minuta de Reunión E005"><div class="doc-icon"><i class="bi bi-file-earmark-pdf"></i></div><div class="fw-bold color-vino doc-title">Minuta de Reunión E005</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="recursos/docs/sustitucion.pdf" data-title="Acta de Sustitución"><div class="doc-icon"><i class="bi bi-file-earmark-pdf"></i></div><div class="fw-bold color-vino doc-title">Acta de Sustitución de Integrantes Comité E005</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="recursos/docs/pat.pdf" data-title="Programa Anual de Trabajo"><div class="doc-icon"><i class="bi bi-file-earmark-pdf"></i></div><div class="fw-bold color-vino doc-title">Programa Anual de Trabajo E005</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="recursos/docs/informe.pdf" data-title="Informe del Comité"><div class="doc-icon"><i class="bi bi-file-earmark-pdf"></i></div><div class="fw-bold color-vino doc-title">Informe del Comité E005</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="recursos/docs/infografia.pdf" data-title="Infografía Contraloría"><div class="doc-icon"><i class="bi bi-card-image"></i></div><div class="fw-bold color-vino doc-title">Infografía de Contraloría Social</div></div></div>
+                </div>
+            </section>
+
+            <section class="mb-5 pb-5 border-bottom border-2">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="bi bi-folder2-open fs-2 text-teal me-3"></i>
+                    <h2 class="section-title m-0">Documentación 2025</h2>
+                </div>
+
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="../recursos/acciones/Lineamientos_para_ejecuci_n_del_Programa_E005_2025.pdf" data-title="Lineamientos"><div class="doc-icon"><i class="bi bi-file-text"></i></div><div class="fw-bold color-vino doc-title">Lineamientos de Cultura del Agua</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Anexo"><div class="doc-icon"><i class="bi bi-paperclip"></i></div><div class="fw-bold color-vino doc-title">Anexo de Ejecución</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Guía"><div class="doc-icon"><i class="bi bi-journal-check"></i></div><div class="fw-bold color-vino doc-title">Guía de criterios de planeación, control y seguimiento E005</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Proyecto"><div class="doc-icon"><i class="bi bi-list-check"></i></div><div class="fw-bold color-vino doc-title">Proyecto de acciones</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Fichas"><div class="doc-icon"><i class="bi bi-file-medical"></i></div><div class="fw-bold color-vino doc-title">Fichas técnicas</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Espacios"><div class="doc-icon"><i class="bi bi-house"></i></div><div class="fw-bold color-vino doc-title">Espacios de Cultura del Agua</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Eventos"><div class="doc-icon"><i class="bi bi-calendar-event"></i></div><div class="fw-bold color-vino doc-title">Eventos</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Formación"><div class="doc-icon"><i class="bi bi-mortarboard"></i></div><div class="fw-bold color-vino doc-title">Formación de competencias</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Recursos"><div class="doc-icon"><i class="bi bi-book"></i></div><div class="fw-bold color-vino doc-title">Recursos didácticos</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Avance"><div class="doc-icon"><i class="bi bi-graph-up"></i></div><div class="fw-bold color-vino doc-title">Avance mensual</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Acta Cierre"><div class="doc-icon"><i class="bi bi-file-lock"></i></div><div class="fw-bold color-vino doc-title">Acta de reubicación o cierre de ECA</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Metas"><div class="doc-icon"><i class="bi bi-pie-chart"></i></div><div class="fw-bold color-vino doc-title">Análisis de cumplimiento de metas</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Cierre"><div class="doc-icon"><i class="bi bi-calculator"></i></div><div class="fw-bold color-vino doc-title">Cierre físico-financiero</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Reporte RNECA"><div class="doc-icon"><i class="bi bi-bar-chart"></i></div><div class="fw-bold color-vino doc-title">Reporte RNECA</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Reporte PPA"><div class="doc-icon"><i class="bi bi-people"></i></div><div class="fw-bold color-vino doc-title">Reporte semestral y acumulado anual PPA</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Capacitación"><div class="doc-icon"><i class="bi bi-person-video3"></i></div><div class="fw-bold color-vino doc-title">Capacitación</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Acumulado"><div class="doc-icon"><i class="bi bi-layers"></i></div><div class="fw-bold color-vino doc-title">Acumulado anual</div></div></div>
+                    <div class="col"><div class="doc-card pdf-link" data-pdf="#" data-title="Directorio"><div class="doc-icon"><i class="bi bi-person-lines-fill"></i></div><div class="fw-bold color-vino doc-title">Directorio Cultura del Agua</div></div></div>
+                </div>
+            </section>
+
+            <section class="mb-5">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-clock-history fs-2 text-teal me-3"></i>
+                        <h2 class="section-title m-0">Histórico de Archivos</h2>
+                    </div>
+                    
+                    <div class="d-flex align-items-center bg-white border border-teal rounded-pill px-3 py-1 shadow-sm">
+                        <i class="bi bi-calendar3 text-teal me-2"></i>
+                        <select id="selectHistorico" class="form-select border-0 bg-transparent fw-bold color-vino shadow-none" style="cursor: pointer;">
+                            <option value="2024">Año 2024</option>
+                            <option value="2023">Año 2023</option>
+                            <option value="2022">Año 2022</option>
+                            <option value="2021">Año 2021</option>
+                            <option value="2020">Año 2020</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="contenedor-historico" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                    </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-vino text-white py-5" id="footer-principal">
+        <div class="container">
+            <div class="row gy-4 mb-5">
+                <div class="col-lg-5 col-md-12 pe-lg-5">
+                    <img src="../recursos/imagenes/vortice.png" alt="Logo Vórtice" style="max-height: 50px;" class="mb-3" onerror="this.src='https://via.placeholder.com/150x45/ffffff/5e1b33?text=VORTICE'">
+                    <p class="text-white-50">La Plataforma de Cultura del Agua dedicada a la concientización, educación y difusión de proyectos para la preservación de nuestro recurso más valioso.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-teal fs-5 fw-bold mb-3">Navegación</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="../index.html#inicio" class="text-white text-decoration-none mb-2 d-inline-block">Inicio</a></li>
+                        <li><a href="../index.html#eventos" class="text-white text-decoration-none mb-2 d-inline-block">Eventos y Noticias</a></li>
+                        <li><a href="../index.html#ludoteca" class="text-white text-decoration-none mb-2 d-inline-block">Ludoteca Interactiva</a></li>
+                        <li><a href="../index.html#talento" class="text-white text-decoration-none mb-2 d-inline-block">Plataforma Talento</a></li>
+                        <li><a href="../index.html#biblioteca" class="text-white text-decoration-none mb-2 d-inline-block">Biblioteca Digital</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="text-teal fs-5 fw-bold mb-3">Contacto Legal</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Aviso de Privacidad</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Términos y Condiciones</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Directorio Institucional</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Soporte Técnico</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row border-top border-secondary pt-4 text-white-50 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <small>&copy; 2026 Vórtice - Plataforma de Cultura del Agua. Todos los derechos reservados.</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="https://www.facebook.com/conaguamx" target="_blank" rel="noopener noreferrer"> <img alt="Facebook" src="https://framework-gb.cdn.gob.mx/landing/img/facebook.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://x.com/conagua_mx" target="_blank" rel="noopener noreferrer"> <img alt="X" src="https://framework-gb.cdn.gob.mx/landing/img/twitter.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://www.instagram.com/conaguamx/" target="_blank" rel="noopener noreferrer"> <img alt="Instagram" src="https://framework-gb.cdn.gob.mx/landing/img/instagram.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://www.youtube.com/@conagua_mx" target="_blank" rel="noopener noreferrer"> <img alt="Youtube" src="https://framework-gb.cdn.gob.mx/landing/img/youtube.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="visorPdfModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content overflow-hidden border-0 shadow-lg">
+                <div class="modal-header bg-vino text-white border-0">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-file-earmark-pdf fs-4 text-teal me-2"></i>
+                        <h5 class="modal-title fw-bold" id="pdfModalTitle" style="font-family: 'patria', sans-serif;">Cargando documento...</h5>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-0 bg-light d-flex justify-content-center align-items-center" style="height: 80vh; position: relative;">
+                    <div id="pdfLoader" class="position-absolute text-teal d-flex flex-column align-items-center">
+                        <div class="spinner-border mb-2" style="width: 3rem; height: 3rem;" role="status"></div>
+                        <span class="fw-bold">Abriendo archivo...</span>
+                    </div>
+                    <iframe id="pdfIframe" src="" width="100%" height="100%" style="border: none; position: relative; z-index: 1;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/scripts.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. LISTA BASE DE DOCUMENTOS
+            const documentosBase = [
+                { titulo: "Lineamientos de Cultura del Agua", icono: "bi-file-text" },
+                { titulo: "Anexo de Ejecución", icono: "bi-paperclip" },
+                { titulo: "Guía de criterios de planeación, control y seguimiento E005", icono: "bi-journal-check" },
+                { titulo: "Proyecto de acciones", icono: "bi-list-check" },
+                { titulo: "Fichas técnicas", icono: "bi-file-medical" },
+                { titulo: "Espacios de Cultura del Agua", icono: "bi-house" },
+                { titulo: "Eventos", icono: "bi-calendar-event" },
+                { titulo: "Formación de competencias", icono: "bi-mortarboard" },
+                { titulo: "Recursos didácticos", icono: "bi-book" },
+                { titulo: "Avance mensual", icono: "bi-graph-up" },
+                { titulo: "Acta de reubicación o cierre de ECA", icono: "bi-file-lock" },
+                { titulo: "Análisis de cumplimiento de metas", icono: "bi-pie-chart" },
+                { titulo: "Cierre físico-financiero", icono: "bi-calculator" },
+                { titulo: "Reporte RNECA", icono: "bi-bar-chart" },
+                { titulo: "Reporte semestral y acumulado anual PPA", icono: "bi-people" },
+                { titulo: "Capacitación", icono: "bi-person-video3" },
+                { titulo: "Acumulado anual", icono: "bi-layers" },
+                { titulo: "Directorio Cultura del Agua", icono: "bi-person-lines-fill" }
+            ];
+
+            // 2. FUNCIÓN PARA GENERAR EL HISTÓRICO DINÁMICAMENTE
+            const selectHistorico = document.getElementById('selectHistorico');
+            const contenedorHistorico = document.getElementById('contenedor-historico');
+
+            function cargarHistorico(anio) {
+                contenedorHistorico.innerHTML = ''; // Limpiar contenedor
+                contenedorHistorico.style.opacity = 0; // Efecto visual suave
+
+                setTimeout(() => {
+                    documentosBase.forEach(doc => {
+                        // Construimos la estructura de la tarjeta para el año seleccionado
+                        const divCol = document.createElement('div');
+                        divCol.className = 'col';
+                        
+                        // NOTA: Aquí puedes ajustar la ruta real cuando tengas los PDFs. 
+                        // Ejemplo: `recursos/docs/${anio}/archivo.pdf`
+                        const rutaPdf = `#ruta_al_pdf_del_${anio}`;
+
+                        divCol.innerHTML = `
+                            <div class="doc-card pdf-link" data-pdf="${rutaPdf}" data-title="${doc.titulo} (${anio})">
+                                <div class="doc-icon"><i class="bi ${doc.icono}"></i></div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-bold color-vino doc-title mb-1">${doc.titulo}</div>
+                                    <span class="badge bg-secondary opacity-75">${anio}</span>
+                                </div>
+                            </div>
+                        `;
+                        contenedorHistorico.appendChild(divCol);
+                    });
+                    
+                    contenedorHistorico.style.opacity = 1;
+                    activarVisorPDF(); // Reactivar eventos de click para las nuevas tarjetas
+                }, 200); // 200ms de animación
+            }
+
+            // Detectar cambio en el menú de años
+            selectHistorico.addEventListener('change', (e) => {
+                cargarHistorico(e.target.value);
+            });
+
+            // Cargar el año 2024 por defecto al iniciar
+            cargarHistorico('2024');
+
+
+            // 3. LÓGICA DEL VISOR DE PDF EN LA MISMA PÁGINA
+            const visorModal = new bootstrap.Modal(document.getElementById('visorPdfModal'));
+            const pdfIframe = document.getElementById('pdfIframe');
+            const pdfTitle = document.getElementById('pdfModalTitle');
+            const pdfLoader = document.getElementById('pdfLoader');
+
+            function activarVisorPDF() {
+                const enlacesPdf = document.querySelectorAll('.pdf-link');
+                
+                enlacesPdf.forEach(enlace => {
+                    // Remover eventos anteriores para no duplicar
+                    enlace.replaceWith(enlace.cloneNode(true));
+                });
+
+                document.querySelectorAll('.pdf-link').forEach(enlace => {
+                    enlace.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        
+                        // Extraer información de la tarjeta
+                        const rutaArchivo = enlace.getAttribute('data-pdf');
+                        const tituloArchivo = enlace.getAttribute('data-title');
+
+                        // Configurar Modal
+                        pdfTitle.innerText = tituloArchivo;
+                        pdfIframe.style.opacity = 0; // Ocultar iframe mientras carga
+                        pdfLoader.style.display = 'flex'; // Mostrar bolita cargando
+
+                        // Limpiar iframe previo para forzar recarga
+                        pdfIframe.src = ''; 
+                        
+                        // Mostrar la ventana emergente
+                        visorModal.show();
+
+                        // Cargar el nuevo archivo
+                        setTimeout(() => {
+                            pdfIframe.src = rutaArchivo;
+                            
+                            // Cuando el iframe termine de cargar el PDF, quitamos el loader
+                            pdfIframe.onload = () => {
+                                pdfLoader.style.display = 'none';
+                                pdfIframe.style.opacity = 1;
+                            };
+                        }, 300);
+                    });
+                });
+            }
+
+            // Limpiar iframe al cerrar el modal (para ahorrar memoria)
+            document.getElementById('visorPdfModal').addEventListener('hidden.bs.modal', () => {
+                pdfIframe.src = '';
+            });
+
+            // Activar visores para la sección 1 y 2
+            activarVisorPDF();
+        });
+    </script>
+</body>
+</html>

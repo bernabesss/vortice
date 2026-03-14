@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ludoteca Interactiva - Vórtice</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/interior.css">
+</head>
+<body>
+
+    <aside id="menu-accesibilidad" class="accessibility-panel">
+        <div class="a11y-header">
+            <button id="btn-cerrar-a11y" class="a11y-close-btn" aria-label="Cerrar menú">&times;</button>
+            <h3 class="text-white m-0 fs-5">Menú Accesibilidad</h3>
+        </div>
+        <div class="a11y-content">
+            <button id="a11y-reset" class="a11y-btn a11y-reset-btn"><i class="bi bi-arrow-counterclockwise"></i> Restablecer</button>
+            <button id="a11y-grayscale" class="a11y-btn"><i class="bi bi-circle-half"></i> Cambiar escala de grises</button>
+            <button id="a11y-reader" class="a11y-btn"><i class="bi bi-volume-up"></i> Usar lector de pantalla</button>
+            <button id="a11y-cursor" class="a11y-btn"><i class="bi bi-cursor-fill"></i> Cambiar tamaño de cursor</button>
+            <button id="a11y-contrast" class="a11y-btn"><i class="bi bi-brightness-high"></i> Cambiar el contraste</button>
+            <button id="a11y-mask" class="a11y-btn"><i class="bi bi-segmented-nav"></i> Máscara de lectura</button>
+            <button id="a11y-guide" class="a11y-btn"><i class="bi bi-distribute-vertical"></i> Guía de lectura</button>
+            <button id="a11y-dyslexia" class="a11y-btn"><i class="bi bi-type"></i> Tipografía para dislexia</button>
+            <button id="a11y-v-spacing" class="a11y-btn"><i class="bi bi-arrows-expand"></i> Espaciado vertical</button>
+            <button id="a11y-h-spacing" class="a11y-btn"><i class="bi bi-arrows-expand-vertical" style="transform: rotate(90deg);"></i> Espaciado horizontal</button>
+            <div class="a11y-text-size-controls">
+                <button id="a11y-text-minus" class="a11y-btn w-50"><i class="bi bi-dash"></i> Texto</button>
+                <button id="a11y-text-plus" class="a11y-btn w-50"><i class="bi bi-plus"></i> Texto</button>
+            </div>
+            <button id="a11y-links" class="a11y-btn"><i class="bi bi-link-45deg"></i> Resaltar Enlaces</button>
+        </div>
+    </aside>
+
+    <div id="a11y-reading-guide" class="d-none"></div>
+    <div id="a11y-reading-mask-top" class="d-none"></div>
+    <div id="a11y-reading-mask-bottom" class="d-none"></div>
+
+    <header class="main-header" id="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../recursos/imagenes/vortice.png" alt="Logo Vórtice" onerror="this.src='https://via.placeholder.com/150x45?text=VORTICE'">
+            </a>
+        </div>
+        <div class="nav-controls d-flex align-items-center flex-row gap-4">
+            <button class="icon-btn accessibility-btn" aria-label="Opciones de accesibilidad">
+                <img src="../recursos/imagenes/accesibilidad.png" alt="Accesibilidad" onerror="this.src='https://via.placeholder.com/34x34?text=Acc'">
+            </button>
+            <div class="menu-container position-relative d-flex align-items-center">
+                <button class="icon-btn menu-toggle-btn" id="menuToggle" aria-label="Abrir menú"></button>
+                <nav class="dropdown-menu-custom">
+                    <ul class="m-0 p-3 list-unstyled">
+                        <li><a href="../index.html">Inicio</a></li>
+                        <li><a href="eventos.html">Eventos</a></li>
+                        <li><a href="ludoteca.html">Ludoteca</a></li>
+                        <li><a href="talleres.html">Talleres</a></li>
+                        <li><a href="biblioteca.html">Biblioteca</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-vh-100 bg-light py-5">
+        
+        <div class="container mb-5">
+            <div class="bg-vino rounded-4 p-4 p-md-5 text-white shadow-sm position-relative overflow-hidden d-flex align-items-center justify-content-between gap-4">
+                
+                <div class="z-1 text-center text-md-start">
+                    <span class="badge bg-teal text-white rounded-pill px-3 py-2 mb-3 tracking-wide" style="font-family: 'Noto Sans', sans-serif;">ZONA INTERACTIVA</span>
+                    <h1 class="fw-bolder mb-3 display-5" style="font-family: 'patria', sans-serif;">Aprende Jugando</h1>
+                    <p class="fs-5 text-white-50 mb-0" style="max-width: 600px; font-family: 'Noto Sans', sans-serif;">
+                        El Escuadrón H2O necesita tu ayuda. Descubre juegos, trivias y materiales descargables diseñados para convertirte en un guardián de nuestra cuenca.
+                    </p>
+                </div>
+
+                <div class="d-none d-md-block flex-shrink-0 z-1">
+                    <i class="bi bi-controller text-white opacity-25" style="font-size: 9rem;"></i>
+                </div>
+                
+                <div class="position-absolute w-100 h-100 top-0 start-0" style="background: radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%); pointer-events: none;"></div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <h2 class="section-title m-0">Misiones Digitales</h2>
+                <span class="text-teal fw-bold d-none d-md-block"><i class="bi bi-controller me-2"></i>Juegos Activos</span>
+            </div>
+            
+            <div class="row g-4 mb-5">
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-white p-4 rounded-4 shadow-sm text-center hover-scale transition-all border-bottom border-5 border-teal h-100 d-flex flex-column">
+                        <div class="bg-light rounded-4 mb-3 d-flex align-items-center justify-content-center" style="height: 180px;">
+                            <i class="bi bi-droplet-half text-teal" style="font-size: 4rem;"></i>
+                        </div>
+                        <h4 class="color-vino fw-bold mb-2">Guardián de la Cuenca</h4>
+                        <p class="text-secondary small flex-grow-1">Atrapa las gotas de lluvia limpia y esquiva los agentes contaminantes antes de que lleguen al río.</p>
+                        <a href="../paginas/juego-guardian.html" class="btn-general w-100 rounded-pill mt-3 text-decoration-none d-inline-block text-center">Jugar Ahora</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-white p-4 rounded-4 shadow-sm text-center hover-scale transition-all border-bottom border-5 border-teal h-100 d-flex flex-column">
+                        <div class="bg-light rounded-4 mb-3 d-flex align-items-center justify-content-center" style="height: 180px;">
+                            <i class="bi bi-tools text-teal" style="font-size: 4rem;"></i>
+                        </div>
+                        <h4 class="color-vino fw-bold mb-2">Repara la Red</h4>
+                        <p class="text-secondary small flex-grow-1">Rompecabezas de lógica: conecta las tuberías correctamente para llevar el agua a la ciudad sin fugas.</p>
+                        <button class="btn-general w-100 rounded-pill mt-3">Jugar Ahora</button>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-white p-4 rounded-4 shadow-sm text-center hover-scale transition-all border-bottom border-5 border-teal h-100 d-flex flex-column">
+                        <div class="bg-light rounded-4 mb-3 d-flex align-items-center justify-content-center" style="height: 180px;">
+                            <i class="bi bi-question-square text-teal" style="font-size: 4rem;"></i>
+                        </div>
+                        <h4 class="color-vino fw-bold mb-2">Trivia H2O</h4>
+                        <p class="text-secondary small flex-grow-1">Ponte a prueba. Responde preguntas de opción múltiple sobre hidrología y gana medallas virtuales.</p>
+                        <button class="btn-general w-100 rounded-pill mt-3">Jugar Ahora</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-teal-light rounded-4 p-4 p-md-5 mb-5 shadow-sm border border-teal d-flex flex-column flex-md-row align-items-center gap-4">
+                <div class="bg-teal text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 shadow" style="width: 100px; height: 100px;">
+                    <i class="bi bi-star-fill" style="font-size: 3rem;"></i>
+                </div>
+                <div class="flex-grow-1 text-center text-md-start">
+                    <h3 class="color-vino fw-bold mb-2">El Reto del Mes: Cazadores de Fugas</h3>
+                    <p class="text-dark mb-0">Revisa las llaves de tu casa y escuela. Si encuentras una gota cayendo, repórtala a un adulto. ¡Descarga tu certificado de inspector aquí!</p>
+                </div>
+                <div>
+                    <button class="btn-general rounded-pill text-nowrap">Obtener Certificado</button>
+                </div>
+            </div>
+
+            <h2 class="section-title mb-4">Material Didáctico</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm hover-scale transition-all">
+                        <div class="bg-light rounded-3 d-flex align-items-center justify-content-center me-3" style="width: 80px; height: 80px;">
+                            <i class="bi bi-palette text-teal fs-2"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="color-vino fw-bold mb-1">Colorea el Ciclo del Agua</h5>
+                            <p class="text-secondary small mb-0">PDF Tamaño Carta</p>
+                        </div>
+                        <a href="#" class="btn-outline-teal rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; padding: 0;">
+                            <i class="bi bi-download"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm hover-scale transition-all">
+                        <div class="bg-light rounded-3 d-flex align-items-center justify-content-center me-3" style="width: 80px; height: 80px;">
+                            <i class="bi bi-scissors text-teal fs-2"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="color-vino fw-bold mb-1">Armable: Presa de Gravedad</h5>
+                            <p class="text-secondary small mb-0">PDF con instrucciones (Papercraft)</p>
+                        </div>
+                        <a href="#" class="btn-outline-teal rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; padding: 0;">
+                            <i class="bi bi-download"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <footer class="bg-vino text-white py-5" id="footer-principal">
+        <div class="container">
+            <div class="row gy-4 mb-5">
+                <div class="col-lg-5 col-md-12 pe-lg-5">
+                    <img src="../recursos/imagenes/vortice.png" alt="Logo Vórtice" style="max-height: 50px;" class="mb-3" onerror="this.src='https://via.placeholder.com/150x45/ffffff/5e1b33?text=VORTICE'">
+                    <p class="text-white-50">La Plataforma de Cultura del Agua dedicada a la concientización, educación y difusión de proyectos para la preservación de nuestro recurso más valioso.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-teal fs-5 fw-bold mb-3">Navegación</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="../index.html#inicio" class="text-white text-decoration-none mb-2 d-inline-block">Inicio</a></li>
+                        <li><a href="../index.html#eventos" class="text-white text-decoration-none mb-2 d-inline-block">Eventos y Noticias</a></li>
+                        <li><a href="../index.html#ludoteca" class="text-white text-decoration-none mb-2 d-inline-block">Ludoteca Interactiva</a></li>
+                        <li><a href="../index.html#talento" class="text-white text-decoration-none mb-2 d-inline-block">Plataforma Talento</a></li>
+                        <li><a href="../index.html#biblioteca" class="text-white text-decoration-none mb-2 d-inline-block">Biblioteca Digital</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="text-teal fs-5 fw-bold mb-3">Contacto Legal</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Aviso de Privacidad</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Términos y Condiciones</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Directorio Institucional</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Soporte Técnico</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row border-top border-secondary pt-4 text-white-50 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <small>&copy; 2026 Vórtice - Plataforma de Cultura del Agua. Todos los derechos reservados.</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="https://www.facebook.com/conaguamx" target="_blank" rel="noopener noreferrer"> <img alt="Facebook" src="https://framework-gb.cdn.gob.mx/landing/img/facebook.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://x.com/conagua_mx" target="_blank" rel="noopener noreferrer"> <img alt="X" src="https://framework-gb.cdn.gob.mx/landing/img/twitter.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://www.instagram.com/conaguamx/" target="_blank" rel="noopener noreferrer"> <img alt="Instagram" src="https://framework-gb.cdn.gob.mx/landing/img/instagram.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://www.youtube.com/@conagua_mx" target="_blank" rel="noopener noreferrer"> <img alt="Youtube" src="https://framework-gb.cdn.gob.mx/landing/img/youtube.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/scripts.js"></script>
+    <script src="../js/interior.js"></script>
+</body>
+</html>

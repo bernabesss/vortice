@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talleres y Cursos Grabados - Vórtice</title> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/interior.css">
+</head>
+<body>
+
+    <aside id="menu-accesibilidad" class="accessibility-panel">
+        <div class="a11y-header">
+            <button id="btn-cerrar-a11y" class="a11y-close-btn" aria-label="Cerrar menú">&times;</button>
+            <h3 class="text-white m-0 fs-5">Menú Accesibilidad</h3>
+        </div>
+        <div class="a11y-content">
+            <button id="a11y-reset" class="a11y-btn a11y-reset-btn"><i class="bi bi-arrow-counterclockwise"></i> Restablecer</button>
+            <button id="a11y-grayscale" class="a11y-btn"><i class="bi bi-circle-half"></i> Cambiar escala de grises</button>
+            <button id="a11y-reader" class="a11y-btn"><i class="bi bi-volume-up"></i> Usar lector de pantalla</button>
+            <button id="a11y-cursor" class="a11y-btn"><i class="bi bi-cursor-fill"></i> Cambiar tamaño de cursor</button>
+            <button id="a11y-contrast" class="a11y-btn"><i class="bi bi-brightness-high"></i> Cambiar el contraste</button>
+            <button id="a11y-mask" class="a11y-btn"><i class="bi bi-segmented-nav"></i> Máscara de lectura</button>
+            <button id="a11y-guide" class="a11y-btn"><i class="bi bi-distribute-vertical"></i> Guía de lectura</button>
+            <button id="a11y-dyslexia" class="a11y-btn"><i class="bi bi-type"></i> Tipografía para dislexia</button>
+            <button id="a11y-v-spacing" class="a11y-btn"><i class="bi bi-arrows-expand"></i> Espaciado vertical</button>
+            <button id="a11y-h-spacing" class="a11y-btn"><i class="bi bi-arrows-expand-vertical" style="transform: rotate(90deg);"></i> Espaciado horizontal</button>
+            <div class="a11y-text-size-controls">
+                <button id="a11y-text-minus" class="a11y-btn w-50"><i class="bi bi-dash"></i> Texto</button>
+                <button id="a11y-text-plus" class="a11y-btn w-50"><i class="bi bi-plus"></i> Texto</button>
+            </div>
+            <button id="a11y-links" class="a11y-btn"><i class="bi bi-link-45deg"></i> Resaltar Enlaces</button>
+        </div>
+    </aside>
+
+    <div id="a11y-reading-guide" class="d-none"></div>
+    <div id="a11y-reading-mask-top" class="d-none"></div>
+    <div id="a11y-reading-mask-bottom" class="d-none"></div>
+
+    <header class="main-header" id="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../recursos/imagenes/vortice.png" alt="Logo Vórtice" onerror="this.src='https://via.placeholder.com/150x45?text=VORTICE'">
+            </a>
+        </div>
+
+        <div class="nav-controls d-flex align-items-center flex-row gap-4">
+            <button class="icon-btn accessibility-btn" aria-label="Opciones de accesibilidad">
+                <img src="../recursos/imagenes/accesibilidad.png" alt="Accesibilidad" onerror="this.src='https://via.placeholder.com/34x34?text=Acc'">
+            </button>
+
+            <div class="menu-container position-relative d-flex align-items-center">
+                <button class="icon-btn menu-toggle-btn" id="menuToggle" aria-label="Abrir menú"></button>
+
+                <nav class="dropdown-menu-custom">
+                    <ul class="m-0 p-3 list-unstyled">
+                        <li><a href="../index.html">Inicio</a></li>
+                        <li><a href="eventos.html">Eventos</a></li>
+                        <li><a href="ludoteca.html">Ludoteca</a></li>
+                        <li><a href="talleres.html">Talleres</a></li>
+                        <li><a href="biblioteca.html">Biblioteca</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-vh-100 bg-light py-5">
+        
+        <div class="container mb-5">
+            <div class="bg-vino rounded-4 p-4 p-md-5 text-white shadow-sm position-relative overflow-hidden d-flex align-items-center justify-content-between gap-4">
+                
+                <div class="z-1 text-center text-md-start">
+                    <span class="badge bg-teal text-white rounded-pill px-3 py-2 mb-3 tracking-wide" style="font-family: 'Noto Sans', sans-serif;">APRENDE A TU RITMO</span>
+                    <h1 class="fw-bolder mb-3 display-5" style="font-family: 'patria', sans-serif;">Cursos y Talleres</h1>
+                    <p class="fs-5 text-white-50 mb-0" style="max-width: 600px; font-family: 'Noto Sans', sans-serif;">
+                        Accede a nuestra colección de talleres grabados y conferencias magistrales. Desarrolla nuevas habilidades desde cualquier dispositivo, cuando tú decidas.
+                    </p>
+                </div>
+
+                <div class="d-none d-md-block flex-shrink-0 z-1">
+                    <i class="bi bi-play-btn text-white opacity-25" style="font-size: 9rem;"></i>
+                </div>
+                
+                <div class="position-absolute w-100 h-100 top-0 start-0" style="background: radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%); pointer-events: none;"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            
+            <div class="bg-white rounded-4 p-4 shadow-sm mb-5 border-bottom border-5 border-teal">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control border-start-0 bg-light py-2" placeholder="Buscar por tema o expositor...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select py-2 bg-light text-muted">
+                            <option selected>Formato</option>
+                            <option value="1">Webinars Grabados</option>
+                            <option value="2">Cursos Completos</option>
+                            <option value="3">Cápsulas Cortas</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-select py-2 bg-light text-muted">
+                            <option selected>Nivel</option>
+                            <option value="1">Básico / Público General</option>
+                            <option value="2">Intermedio</option>
+                            <option value="3">Técnico Avanzado</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 text-md-end text-center">
+                         <button class="btn-general w-100 rounded-pill py-2" style="font-size: 1rem;">Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <h2 class="section-title m-0">Catálogo de Sesiones</h2>
+                <span class="text-teal fw-bold d-none d-md-block"><i class="bi bi-play-circle-fill me-2"></i>Disponibles 24/7</span>
+            </div>
+            
+            <div class="row g-4 mb-5 text-start">
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="libro-card bg-white rounded-4 p-4 text-center shadow-sm h-100 border transition-all d-flex flex-column">
+                        <div class="position-relative w-100 mb-3">
+                            <img src="https://via.placeholder.com/400x250/1e9e8f/ffffff?text=Video:+Captaci%C3%B3n" alt="Captación de lluvia" class="w-100 bg-light rounded-2 object-fit-cover shadow-sm" style="height:200px;">
+                            <span class="position-absolute top-0 start-0 m-2 badge bg-vino text-white fs-6"><i class="bi bi-camera-video me-1"></i> Grabación</span>
+                            <div class="position-absolute top-50 start-50 translate-middle">
+                                <i class="bi bi-play-circle-fill text-white opacity-75" style="font-size: 3rem;"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="text-start flex-grow-1">
+                            <h3 class="fs-5 color-vino fw-bold mb-2">Sistemas de Captación Pluvial (Taller Práctico)</h3>
+                            <p class="text-secondary small mb-3">Aprende a diseñar e instalar un sistema de recolección de agua de lluvia paso a paso con esta demostración en video.</p>
+                            
+                            <ul class="list-unstyled small text-muted mb-4 border-top pt-3">
+                                <li class="mb-2"><i class="bi bi-clock-history text-teal me-2"></i> Duración: 45 min</li>
+                                <li class="mb-2"><i class="bi bi-person-video text-teal me-2"></i> Expositor: Ing. Carlos Ruiz</li>
+                                <li><i class="bi bi-check2-circle text-teal me-2"></i> Acceso Inmediato</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn-outline-teal w-100 mt-auto text-center d-inline-block text-decoration-none"><i class="bi bi-play-fill me-2"></i>Reproducir Video</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="libro-card bg-white rounded-4 p-4 text-center shadow-sm h-100 border transition-all d-flex flex-column">
+                        <div class="position-relative w-100 mb-3">
+                            <img src="https://via.placeholder.com/400x250/5e1b33/ffffff?text=Curso:+Legislaci%C3%B3n" alt="Legislación del agua" class="w-100 bg-light rounded-2 object-fit-cover shadow-sm" style="height:200px;">
+                            <span class="position-absolute top-0 start-0 m-2 badge bg-teal text-white fs-6"><i class="bi bi-collection-play me-1"></i> Curso On-Demand</span>
+                        </div>
+                        
+                        <div class="text-start flex-grow-1">
+                            <h3 class="fs-5 color-vino fw-bold mb-2">Introducción a la Legislación del Agua en México</h3>
+                            <p class="text-secondary small mb-3">Conoce el marco legal vigente, derechos y obligaciones para la correcta gestión de los recursos hídricos en este curso completo.</p>
+                            
+                            <ul class="list-unstyled small text-muted mb-4 border-top pt-3">
+                                <li class="mb-2"><i class="bi bi-play-btn text-teal me-2"></i> 5 Módulos en Video</li>
+                                <li class="mb-2"><i class="bi bi-clock-history text-teal me-2"></i> Duración total: 2.5 Horas</li>
+                                <li><i class="bi bi-file-earmark-pdf text-teal me-2"></i> Incluye material de apoyo</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn-outline-teal w-100 mt-auto text-center d-inline-block text-decoration-none"><i class="bi bi-play-fill me-2"></i>Comenzar Módulo 1</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="libro-card bg-white rounded-4 p-4 text-center shadow-sm h-100 border transition-all d-flex flex-column">
+                        <div class="position-relative w-100 mb-3">
+                            <img src="https://via.placeholder.com/400x250/1e9e8f/ffffff?text=Webinar:+Riego" alt="Técnicas de Riego" class="w-100 bg-light rounded-2 object-fit-cover shadow-sm" style="height:200px;">
+                            <span class="position-absolute top-0 start-0 m-2 badge bg-secondary text-white fs-6"><i class="bi bi-record-circle me-1"></i> Webinar Grabado</span>
+                        </div>
+                        
+                        <div class="text-start flex-grow-1">
+                            <h3 class="fs-5 color-vino fw-bold mb-2">Técnicas de Riego Eficiente para Agricultura</h3>
+                            <p class="text-secondary small mb-3">Grabación de nuestra conferencia magistral sobre la modernización de los sistemas de riego y maximización del rendimiento.</p>
+                            
+                            <ul class="list-unstyled small text-muted mb-4 border-top pt-3">
+                                <li class="mb-2"><i class="bi bi-clock-history text-teal me-2"></i> Duración: 1 Hora 15 min</li>
+                                <li class="mb-2"><i class="bi bi-calendar-check text-teal me-2"></i> Grabado en: Mayo 2025</li>
+                                <li><i class="bi bi-cloud-download text-teal me-2"></i> Presentación descargable</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn-outline-teal w-100 mt-auto text-center d-inline-block text-decoration-none"><i class="bi bi-play-fill me-2"></i>Ver Conferencia</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <nav aria-label="Navegación de páginas de talleres" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link border-0 text-secondary" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link bg-teal border-teal text-white rounded-circle mx-1" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link text-teal border-0 fw-bold" href="#">2</a></li>
+                    <li class="page-item">
+                        <a class="page-link border-0 text-teal fw-bold" href="#">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </main>
+
+    <footer class="bg-vino text-white py-5" id="footer-principal">
+        <div class="container">
+            <div class="row gy-4 mb-5">
+                <div class="col-lg-5 col-md-12 pe-lg-5">
+                    <img src="../recursos/imagenes/vortice.png" alt="Logo Vórtice" style="max-height: 50px;" class="mb-3" onerror="this.src='https://via.placeholder.com/150x45/ffffff/5e1b33?text=VORTICE'">
+                    <p class="text-white-50">La Plataforma de Cultura del Agua dedicada a la concientización, educación y difusión de proyectos para la preservación de nuestro recurso más valioso.</p>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-teal fs-5 fw-bold mb-3">Navegación</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="../index.html#inicio" class="text-white text-decoration-none mb-2 d-inline-block">Inicio</a></li>
+                        <li><a href="../index.html#eventos" class="text-white text-decoration-none mb-2 d-inline-block">Eventos y Noticias</a></li>
+                        <li><a href="../index.html#ludoteca" class="text-white text-decoration-none mb-2 d-inline-block">Ludoteca Interactiva</a></li>
+                        <li><a href="../index.html#talento" class="text-white text-decoration-none mb-2 d-inline-block">Plataforma Talento</a></li>
+                        <li><a href="../index.html#biblioteca" class="text-white text-decoration-none mb-2 d-inline-block">Biblioteca Digital</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="text-teal fs-5 fw-bold mb-3">Contacto Legal</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Aviso de Privacidad</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Términos y Condiciones</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Directorio Institucional</a></li>
+                        <li><a href="#" class="text-white text-decoration-none mb-2 d-inline-block">Soporte Técnico</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row border-top border-secondary pt-4 text-white-50 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <small>&copy; 2026 Vórtice - Plataforma de Cultura del Agua. Todos los derechos reservados.</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="https://www.facebook.com/conaguamx" target="_blank" rel="noopener noreferrer"> <img alt="Facebook" src="https://framework-gb.cdn.gob.mx/landing/img/facebook.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://x.com/conagua_mx" target="_blank" rel="noopener noreferrer"> <img alt="X" src="https://framework-gb.cdn.gob.mx/landing/img/twitter.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://www.instagram.com/conaguamx/" target="_blank" rel="noopener noreferrer"> <img alt="Instagram" src="https://framework-gb.cdn.gob.mx/landing/img/instagram.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                    <a href="https://www.youtube.com/@conagua_mx" target="_blank" rel="noopener noreferrer"> <img alt="Youtube" src="https://framework-gb.cdn.gob.mx/landing/img/youtube.png" style="width: 24px; height: 24px; margin-left: 10px;"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/scripts.js"></script>
+    <script src="../js/interior.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Guardián de la Cuenca (PRO) - Vórtice</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/interior.css">
+
+    <style>
+        html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; }
+
+        #game-area {
+            position: relative; width: 100%; margin: 0 auto;
+            background-color: #0b1a2a; border-radius: 0; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            touch-action: none; cursor: none;
+            aspect-ratio: 800 / 500; max-width: 100%;
+        }
+
+        @media (min-width: 992px) {
+            #game-area {
+                border-radius: 20px; border: 4px solid var(--color-teal);
+                max-width: 900px; cursor: default;
+            }
+        }
+
+        :fullscreen #game-area, :-webkit-full-screen #game-area {
+            width: 100% !important; height: 100% !important; max-width: 100% !important;
+            aspect-ratio: auto !important; border-radius: 0 !important;
+            border: none !important; margin: 0 !important; cursor: none;
+        }
+
+        canvas { display: block; width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+
+        .game-ui {
+            position: absolute; top: 20px; left: 20px; right: 20px;
+            display: flex; justify-content: space-between;
+            font-family: 'patria', 'Segoe UI', sans-serif;
+            font-size: clamp(1.2rem, 5vw, 1.8rem); font-weight: bold; 
+            color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            pointer-events: none; z-index: 10;
+        }
+
+        /* Indicadores de Power Ups activos */
+        #active-powers {
+            position: absolute; top: 60px; left: 20px;
+            display: flex; gap: 10px; z-index: 10;
+        }
+        .power-badge {
+            background: rgba(255,255,255,0.2); backdrop-filter: blur(5px);
+            padding: 5px 15px; border-radius: 20px; color: white; font-weight: bold;
+            font-size: 0.9rem; display: none; border: 1px solid rgba(255,255,255,0.4);
+        }
+        
+        .game-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 20px; backdrop-filter: blur(8px); z-index: 20;
+        }
+
+        #joystick-container {
+            position: absolute; bottom: 30px; left: 30px;
+            width: 130px; height: 130px; background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(2px); border-radius: 50%;
+            border: 2px solid rgba(30, 158, 143, 0.3);
+            display: none; align-items: center; justify-content: center;
+            touch-action: none; z-index: 15;
+        }
+        #joystick-knob {
+            width: 70px; height: 70px; background: rgba(30, 158, 143, 0.8); 
+            border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: absolute; touch-action: none;
+        }
+
+        #ui-controls {
+            position: absolute; bottom: 20px; right: 20px;
+            display: flex; gap: 10px; z-index: 15;
+        }
+        .btn-icon-game {
+            background: rgba(94, 27, 51, 0.6); color: white; border: none; 
+            border-radius: 50%; width: 50px; height: 50px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; cursor: pointer; transition: background 0.3s;
+        }
+        .btn-icon-game:hover { background: rgba(94, 27, 51, 0.9); }
+        :fullscreen #ui-controls, :-webkit-full-screen #ui-controls { bottom: 30px; right: 30px; }
+    </style>
+</head>
+<body class="bg-light">
+
+    <header class="main-header" id="header-principal">
+        <div class="logo-container">
+            <a href="../index.html"><img src="../recursos/imagenes/vortice.png" alt="Logo Vórtice" onerror="this.src='https://via.placeholder.com/150x45?text=VORTICE'"></a>
+        </div>
+        <div class="nav-controls d-flex align-items-center flex-row gap-4">
+            <a href="ludoteca.html" class="btn-outline-teal text-white border-white text-decoration-none fw-bold d-none d-lg-block">&larr; Volver</a>
+            <div class="menu-container position-relative d-flex align-items-center">
+                <button class="icon-btn menu-toggle-btn" id="menuToggle" aria-label="Abrir menú"></button>
+                <nav class="dropdown-menu-custom">
+                    <ul class="m-0 p-3 list-unstyled">
+                        <li><a href="../index.html">Inicio</a></li>
+                        <li><a href="eventos.html">Eventos</a></li>
+                        <li><a href="ludoteca.html">Ludoteca</a></li>
+                        <li><a href="talleres.html">Talleres</a></li>
+                        <li><a href="biblioteca.html">Biblioteca</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-lg-5 py-2">
+        <div class="container text-center mb-4 d-none d-lg-block">
+            <h1 class="section-title text-start mb-2">Guardián de la Cuenca PRO</h1>
+            <p class="text-secondary fs-5">Atrapa el agua, esquiva la contaminación y usa los <strong>Power-Ups</strong>.</p>
+        </div>
+
+        <div id="full-game-wrapper" class="d-flex justify-content-center align-items-center vh-lg-auto">
+            <div id="game-area">
+                <canvas id="gameCanvas" width="800" height="500"></canvas>
+
+                <div class="game-ui">
+                    <div>💧 <span id="scoreDisplay">0000</span></div>
+                    <div><span id="livesDisplay">❤️❤️❤️</span></div>
+                </div>
+
+                <div id="active-powers">
+                    <div id="badge-shield" class="power-badge"><i class="bi bi-shield-fill-check me-1 text-info"></i> Escudo</div>
+                    <div id="badge-magnet" class="power-badge"><i class="bi bi-magnet-fill me-1 text-danger"></i> Imán</div>
+                </div>
+
+                <div id="joystick-container"><div id="joystick-knob"></div></div>
+
+                <div id="ui-controls">
+                    <button id="toggleFullscreen" class="btn-icon-game" title="Pantalla Completa"><i class="bi bi-arrows-fullscreen"></i></button>
+                    <a href="ludoteca.html" class="btn-icon-game text-decoration-none d-lg-none" title="Volver a Ludoteca"><i class="bi bi-box-arrow-left"></i></a>
+                </div>
+
+                <div id="startScreen" class="game-overlay">
+                    <div id="logo-icon-container" class="mb-3"></div>
+                    <h2 class="color-vino fw-bolder display-5" style="font-family: 'patria', sans-serif;">Guardián de la Cuenca</h2>
+                    <p class="fs-5 text-dark mb-4 max-w-custom mx-auto px-3">
+                        Atrapa agua limpia (Azul) y Poderes (Escudos, Imanes, Vidas).<br>
+                        <strong>¡Esquiva la contaminación guinda!</strong>
+                    </p>
+                    <button id="startBtn" class="btn-general rounded-pill btn-lg px-5 shadow fw-bold">¡COMENZAR MISIÓN!</button>
+                </div>
+
+                <div id="gameOverScreen" class="game-overlay d-none">
+                    <i class="bi bi-exclamation-triangle-fill text-danger mb-3" style="font-size: 5rem;"></i>
+                    <h2 class="color-vino fw-bolder display-5" style="font-family: 'patria', sans-serif;">Misión Fallida</h2>
+                    <p class="fs-4 text-dark mb-2">Lograste salvar <strong class="text-teal fs-2" id="finalScore">0</strong> litros de agua.</p>
+                    <button id="restartBtn" class="btn-general rounded-pill btn-lg px-5 mt-4 shadow fw-bold">Intentar de nuevo</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/scripts.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- GESTOR DE IMÁGENES SVG ---
+            const Assets = {
+                svg: {
+                    logo: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#e0f2f1"/><path d="M50 20 C 60 40, 75 55, 75 70 A 25 25 0 0 1 25 70 C 25 55, 40 40, 50 20 Z" fill="#1e9e8f"/></svg>',
+                    player: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 70"><path d="M10 10 L110 10 C115 10 120 15 120 20 L110 60 A 15 15 0 0 1 10 60 L0 20 C0 15 5 10 10 10 Z" fill="#1e9e8f"/><rect x="15" y="15" width="90" height="8" rx="4" fill="rgba(255,255,255,0.3)"/></svg>',
+                    water: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M25 5 C 30 15, 40 25, 40 35 A 15 15 0 0 1 10 35 C 10 25, 20 15, 25 5 Z" fill="#4facfe" stroke="white" stroke-width="1.5"/></svg>',
+                    trash: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><rect x="5" y="5" width="40" height="40" rx="10" fill="#5e1b33"/><line x1="15" y1="15" x2="35" y2="35" stroke="white" stroke-width="4"/><line x1="15" y1="35" x2="35" y2="15" stroke="white" stroke-width="4"/></svg>',
+                    // NUEVOS POWER UPS
+                    shield: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M25 5 L40 10 L40 25 C40 35, 25 45, 25 45 C25 45, 10 35, 10 25 L10 10 Z" fill="#00d2ff" stroke="white" stroke-width="3"/></svg>',
+                    magnet: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M15 35 L15 20 C15 10, 35 10, 35 20 L35 35 L25 35 L25 25 C25 20, 25 20, 25 20 C25 15, 25 15, 25 20 L25 35 Z" fill="#ff4d4d" stroke="white" stroke-width="2"/><rect x="10" y="30" width="10" height="10" fill="silver"/><rect x="30" y="30" width="10" height="10" fill="silver"/></svg>',
+                    heart: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M25 40 C25 40, 5 25, 5 15 C5 5, 20 5, 25 15 C30 5, 45 5, 45 15 C45 25, 25 40, 25 40 Z" fill="#ff6b81" stroke="white" stroke-width="2"/></svg>'
+                },
+                images: {},
+                async load() {
+                    const promises = Object.entries(this.svg).map(([key, svgString]) => {
+                        return new Promise(resolve => {
+                            const img = new Image();
+                            img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString);
+                            img.onload = () => { this.images[key] = img; resolve(); };
+                            img.onerror = () => resolve();
+                        });
+                    });
+                    await Promise.all(promises);
+                    const logoContainer = document.getElementById('logo-icon-container');
+                    if(logoContainer) logoContainer.innerHTML = `<img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(this.svg.logo)}" style="width:100px; height:100px;">`;
+                }
+            };
+
+            const FullscreenManager = {
+                wrapper: document.getElementById('full-game-wrapper'),
+                btn: document.getElementById('toggleFullscreen'),
+                active: false,
+                init() {
+                    this.btn.addEventListener('click', () => this.toggle());
+                    document.addEventListener('fullscreenchange', () => this.handleStatus());
+                },
+                toggle() { !this.active ? this.enter() : this.exit(); },
+                enter() { if (this.wrapper.requestFullscreen) this.wrapper.requestFullscreen(); },
+                exit() { if (document.exitFullscreen) document.exitFullscreen(); },
+                handleStatus() {
+                    this.active = !!document.fullscreenElement;
+                    this.btn.innerHTML = this.active ? '<i class="bi bi-fullscreen-exit"></i>' : '<i class="bi bi-arrows-fullscreen"></i>';
+                    if (this.active && screen.orientation && screen.orientation.lock) {
+                        screen.orientation.lock('landscape').catch(() => {});
+                    }
+                }
+            };
+
+            class Game {
+                constructor() {
+                    this.canvas = document.getElementById('gameCanvas');
+                    this.ctx = this.canvas.getContext('2d');
+                    this.width = this.canvas.width;
+                    this.height = this.canvas.height;
+                    this.isPlaying = false;
+                    this.animationId = null;
+                    
+                    // UI Elements
+                    this.ui = {
+                        score: document.getElementById('scoreDisplay'),
+                        lives: document.getElementById('livesDisplay'),
+                        final: document.getElementById('finalScore'),
+                        badgeShield: document.getElementById('badge-shield'),
+                        badgeMagnet: document.getElementById('badge-magnet')
+                    };
+                    
+                    this.overlays = {
+                        start: document.getElementById('startScreen'),
+                        over: document.getElementById('gameOverScreen')
+                    };
+
+                    this.player = {
+                        width: 140, height: 70, color: '#1e9e8f', 
+                        x: 0, y: this.height - 90, speed: 12, dx: 0,
+                        shield: false, magnetTimer: 0
+                    };
+
+                    this.joystick = { active: false, currentDx: 0, container: document.getElementById('joystick-container'), knob: document.getElementById('joystick-knob'), maxRadius: 50 };
+                    
+                    this.state = { score: 0, lives: 3, items: [], speedMultiplier: 1, lastSpawn: 0, spawnRate: 1000 };
+                    this.particles = [];
+                    this.floatingTexts = []; // Sistema de textos flotantes
+
+                    this.init();
+                }
+
+                init() {
+                    document.getElementById('startBtn').addEventListener('click', () => { FullscreenManager.enter(); this.start(); });
+                    document.getElementById('restartBtn').addEventListener('click', () => this.start());
+
+                    document.addEventListener('mousemove', (e) => {
+                        if (!this.isPlaying || this.joystick.active) return;
+                        const rect = this.canvas.getBoundingClientRect();
+                        const scaleX = this.canvas.width / rect.width;
+                        this.player.x = Math.max(0, Math.min(((e.clientX - rect.left) * scaleX) - this.player.width / 2, this.width - this.player.width));
+                    });
+
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowLeft') this.player.dx = -this.player.speed;
+                        if (e.key === 'ArrowRight') this.player.dx = this.player.speed;
+                    });
+                    document.addEventListener('keyup', (e) => { if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') this.player.dx = 0; });
+                    
+                    if('ontouchstart' in window) {
+                        this.joystick.container.style.display = 'flex';
+                        this.initJoystickEvents();
+                    }
+                }
+
+                initJoystickEvents() {
+                    const handleStart = (e) => { e.preventDefault(); this.joystick.active = true; this.joystick.startCoords = { x: e.touches[0].clientX }; this.joystick.knob.style.transition = 'none'; };
+                    const handleMove = (e) => {
+                        if(!this.joystick.active) return;
+                        e.preventDefault();
+                        let dx = e.touches[0].clientX - this.joystick.startCoords.x;
+                        let limitedDx = Math.max(-this.joystick.maxRadius, Math.min(this.joystick.maxRadius, dx));
+                        this.joystick.knob.style.transform = `translateX(${limitedDx}px)`;
+                        this.joystick.currentDx = limitedDx / this.joystick.maxRadius;
+                    };
+                    const handleEnd = () => { this.joystick.active = false; this.joystick.currentDx = 0; this.joystick.knob.style.transition = 'transform 0.2s'; this.joystick.knob.style.transform = `translateX(0px)`; };
+
+                    this.joystick.knob.addEventListener('touchstart', handleStart);
+                    document.addEventListener('touchmove', handleMove, { passive: false });
+                    document.addEventListener('touchend', handleEnd);
+                }
+
+                updateUI() {
+                    this.ui.score.innerText = String(this.state.score).padStart(4, '0');
+                    let hearts = ''; for(let i=0; i<this.state.lives; i++) hearts += '❤️';
+                    this.ui.lives.innerText = hearts;
+
+                    // Mostrar/Ocultar Badges de Poder
+                    this.ui.badgeShield.style.display = this.player.shield ? 'block' : 'none';
+                    this.ui.badgeMagnet.style.display = this.player.magnetTimer > 0 ? 'block' : 'none';
+                }
+
+                // LÓGICA DE SPAWN CON PROBABILIDADES
+                spawnItem() {
+                    const x = Math.random() * (this.width - 40);
+                    let type = 'water';
+                    let size = 35;
+                    
+                    // Probabilidades de aparición
+                    const rand = Math.random();
+                    if (rand > 0.98) type = 'heart'; // 2% Extra Life
+                    else if (rand > 0.95) type = 'shield'; // 3% Shield
+                    else if (rand > 0.90) type = 'magnet'; // 5% Magnet
+                    else if (rand > 0.65) type = 'trash'; // 25% Trash
+                    // 65% Water (default)
+                    
+                    this.state.items.push({
+                        x: x, y: -50, size: size, type: type,
+                        speed: (Math.random() * 2 + 4) * this.state.speedMultiplier
+                    });
+                }
+
+                drawBackground() {
+                    const gradient = this.ctx.createLinearGradient(0, 0, 0, this.height);
+                    gradient.addColorStop(0, '#0a2342'); // Azul oscuro arriba
+                    gradient.addColorStop(1, '#17406b'); // Azul marino abajo
+                    this.ctx.fillStyle = gradient;
+                    this.ctx.fillRect(0, 0, this.width, this.height);
+                }
+
+                start() {
+                    this.state.score = 0; this.state.lives = 3; 
+                    this.state.speedMultiplier = 1; this.state.items = [];
+                    this.player.x = this.width / 2 - this.player.width / 2;
+                    this.player.shield = false; this.player.magnetTimer = 0;
+                    this.particles = []; this.floatingTexts = [];
+                    
+                    this.updateUI();
+                    this.overlays.start.classList.add('d-none');
+                    this.overlays.over.classList.add('d-none');
+                    this.isPlaying = true;
+                    cancelAnimationFrame(this.animationId);
+                    this.loop();
+                }
+
+                gameOver() {
+                    this.isPlaying = false;
+                    cancelAnimationFrame(this.animationId);
+                    FullscreenManager.exit();
+                    this.ui.final.innerText = this.state.score;
+                    this.overlays.over.classList.remove('d-none');
+                }
+
+                // EFECTOS VISUALES
+                createParticles(x, y, color, count=10) {
+                    for (let i=0; i<count; i++) this.particles.push({ x, y, color, size: Math.random()*5+2, vx: Math.random()*6-3, vy: Math.random()*-5-1, life: 30 });
+                }
+                addFloatingText(x, y, text, color) {
+                    this.floatingTexts.push({ x, y, text, color, life: 40, vy: -2 });
+                }
+
+                loop() {
+                    if (!this.isPlaying) return;
+
+                    // Mover Jugador
+                    this.player.x += this.joystick.active ? (this.joystick.currentDx * this.player.speed * 1.5) : this.player.dx;
+                    this.player.x = Math.max(0, Math.min(this.player.x, this.width - this.player.width));
+
+                    // Timers
+                    if(this.player.magnetTimer > 0) this.player.magnetTimer--;
+
+                    // Spawn Items
+                    if(Date.now() - this.state.lastSpawn > this.state.spawnRate / this.state.speedMultiplier) {
+                        this.spawnItem(); this.state.lastSpawn = Date.now();
+                    }
+
+                    // Renderizar Fondo
+                    this.drawBackground();
+                    
+                    // Renderizar Jugador y su Escudo
+                    if (this.player.shield) {
+                        this.ctx.beginPath();
+                        this.ctx.arc(this.player.x + this.player.width/2, this.player.y + this.player.height/2, this.player.width/1.8, 0, Math.PI*2);
+                        this.ctx.fillStyle = 'rgba(0, 210, 255, 0.3)';
+                        this.ctx.fill();
+                        this.ctx.lineWidth = 3;
+                        this.ctx.strokeStyle = '#00d2ff';
+                        this.ctx.stroke();
+                    }
+                    if(Assets.images.player) this.ctx.drawImage(Assets.images.player, this.player.x, this.player.y, this.player.width, this.player.height);
+
+                    // Lógica de Items
+                    for (let i = 0; i < this.state.items.length; i++) {
+                        let item = this.state.items[i];
+                        
+                        // LÓGICA DEL IMÁN
+                        if (this.player.magnetTimer > 0 && (item.type === 'water' || item.type === 'heart' || item.type === 'shield')) {
+                            let dx = (this.player.x + this.player.width/2) - (item.x + item.size/2);
+                            let dy = (this.player.y + this.player.height/2) - (item.y + item.size/2);
+                            let dist = Math.sqrt(dx*dx + dy*dy);
+                            if (dist < 300) { // Radio de atracción
+                                item.x += (dx / dist) * 6;
+                                item.y += (dy / dist) * 6;
+                            } else {
+                                item.y += item.speed;
+                            }
+                        } else {
+                            item.y += item.speed;
+                        }
+                        
+                        // Dibujar Item
+                        let img = Assets.images[item.type];
+                        if(img) this.ctx.drawImage(img, item.x, item.y, item.size, item.size);
+
+                        // Lógica de Colisión
+                        if (item.y + item.size > this.player.y + 10 && item.y < this.player.y + this.player.height && item.x + item.size > this.player.x && item.x < this.player.x + this.player.width) {
+                            
+                            if (item.type === 'water') {
+                                this.state.score += 10;
+                                this.createParticles(item.x, item.y, '#4facfe');
+                                this.addFloatingText(item.x, item.y, '+10', '#4facfe');
+                                if(this.state.score % 100 === 0) this.state.speedMultiplier += 0.15;
+                            } 
+                            else if (item.type === 'trash') {
+                                if(this.player.shield) {
+                                    this.player.shield = false; // Rompe escudo
+                                    this.createParticles(item.x, item.y, '#00d2ff', 20);
+                                    this.addFloatingText(this.player.x + 30, this.player.y, '¡Bloqueado!', '#00d2ff');
+                                } else {
+                                    this.state.lives--; // Pierde vida
+                                    this.createParticles(item.x, item.y, '#5e1b33', 15);
+                                    this.addFloatingText(item.x, item.y, '-1 Vida', '#ff4d4d');
+                                    this.ctx.fillStyle = 'rgba(255,0,0,0.3)'; this.ctx.fillRect(0,0,this.width, this.height);
+                                }
+                            }
+                            else if (item.type === 'shield') {
+                                this.player.shield = true;
+                                this.addFloatingText(item.x, item.y, 'Escudo', '#00d2ff');
+                            }
+                            else if (item.type === 'magnet') {
+                                this.player.magnetTimer = 60 * 8; // 8 segundos a 60fps
+                                this.addFloatingText(item.x, item.y, '¡Imán!', '#ff4d4d');
+                            }
+                            else if (item.type === 'heart') {
+                                if(this.state.lives < 5) this.state.lives++;
+                                this.addFloatingText(item.x, item.y, '+1 Vida', '#ff6b81');
+                            }
+
+                            this.state.items.splice(i, 1); i--;
+                            this.updateUI(); continue;
+                        }
+
+                        if (item.y > this.height) { this.state.items.splice(i, 1); i--; }
+                    }
+
+                    // Render Partículas y Textos
+                    this.particles.forEach((p, i) => {
+                        p.x += p.vx; p.y += p.vy; p.life--;
+                        if(p.life <= 0) this.particles.splice(i, 1);
+                        else {
+                            this.ctx.globalAlpha = p.life / 30; this.ctx.fillStyle = p.color;
+                            this.ctx.beginPath(); this.ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); this.ctx.fill();
+                        }
+                    });
+                    this.ctx.globalAlpha = 1;
+
+                    this.ctx.font = "bold 20px 'Segoe UI'";
+                    this.floatingTexts.forEach((t, i) => {
+                        t.y += t.vy; t.life--;
+                        if(t.life <= 0) this.floatingTexts.splice(i, 1);
+                        else {
+                            this.ctx.globalAlpha = t.life / 40;
+                            this.ctx.fillStyle = t.color;
+                            this.ctx.fillText(t.text, t.x, t.y);
+                        }
+                    });
+                    this.ctx.globalAlpha = 1;
+
+                    if (this.state.lives <= 0) this.gameOver(); 
+                    else this.animationId = requestAnimationFrame(() => this.loop());
+                }
+            }
+
+            FullscreenManager.init();
+            Assets.load().then(() => { const game = new Game(); });
+
+        });
+    </script>
+</body>
+</html>
