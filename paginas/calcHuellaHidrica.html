@@ -338,28 +338,35 @@
     
     <script>
         let currentStep = 1;
-        const totalSteps = 10; // 1 Registro + 8 Preguntas + 1 Resultado
+        const totalSteps = 10;
         let totalLitros = 0;
         let multiplier = 1.0;
 
-        // Función para validar el registro inicial
-        function startTest() {
-            const name = document.getElementById('userName').value;
-            const email = document.getElementById('userEmail').value;
-            const alcaldia = document.getElementById('userAlcaldia').value;
+        // Variables globales para guardar los datos del usuario
+        let userData = {
+            nombre: "",
+            correo: "",
+            alcaldia: "",
+            consumo: 0
+        };
 
-            if(!name || !email || !alcaldia) {
+        // URL GENERADA EN EL PASO 2 (Tu enlace real)
+        const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbzSx-0fkaogwPfG1GjFJwW8YDefLhpRYNMuvqc3uFulk45P_1PYo7i38_kqIopNorrVUw/exec";
+
+        // 1. Validar registro y avanzar a la primera pregunta
+        function startTest() {
+            userData.nombre = document.getElementById('userName').value.trim();
+            userData.correo = document.getElementById('userEmail').value.trim();
+            userData.alcaldia = document.getElementById('userAlcaldia').value;
+
+            if(!userData.nombre || !userData.correo || !userData.alcaldia) {
                 alert("Por favor, completa todos los campos para continuar.");
                 return;
             }
-
-            // Aquí podrías enviar los datos a una base de datos o Google Sheets en el futuro
-            // console.log("Usuario Registrado:", name, email, alcaldia);
-
             nextStep();
         }
 
-        // Función para registrar valores de las preguntas
+        // 2. FUNCIÓN FALTANTE: Registrar las respuestas de los botones y avanzar
         function recordVal(val, isMultiplier = false, isLast = false) {
             if(isMultiplier) { 
                 multiplier = val; 
@@ -369,7 +376,7 @@
             nextStep();
         }
 
-        // Lógica de transición de tarjetas
+        // 3. Lógica visual de transición de tarjetas
         function nextStep() {
             const currentCard = document.getElementById('step' + currentStep);
             currentCard.classList.remove('active');
@@ -395,11 +402,29 @@
             }, 150);
         }
 
-        // Cálculo final y animación de gota
+        // 4. Calcular el resultado, animar la gota y enviar a Sheets
         function calculateFinal() {
             const final = Math.round(totalLitros * multiplier);
             document.getElementById('finalResult').innerText = final.toLocaleString();
 
+            // Guardar el consumo final en el objeto de datos
+            userData.consumo = final;
+
+           // --- ENVIAR DATOS A GOOGLE SHEETS ---
+            fetch(URL_GOOGLE_SCRIPT, {
+                method: 'POST',
+                mode: 'no-cors', // Evita bloqueos de seguridad
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8' // <--- ESTE ES EL TRUCO CLAVE
+                },
+                body: JSON.stringify(userData)
+            }).then(() => {
+                console.log("Petición enviada. Revisa tu Google Sheet.");
+            }).catch(error => {
+                console.error("Error en el envío:", error);
+            });
+
+            // Animación visual de la gota
             const maxCap = 5000;
             let percentage = (final / maxCap) * 100;
             
@@ -413,6 +438,7 @@
                 waterFill.style.top = topValue + '%';
             }, 400);
 
+            // Mostrar el mensaje correspondiente
             const msg = document.getElementById('hh-message');
             if(final < 2000) {
                 msg.innerText = "¡Excelente! Tu consumo está muy por debajo del promedio nacional.";
