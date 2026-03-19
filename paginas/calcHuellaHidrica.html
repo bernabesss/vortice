@@ -76,7 +76,6 @@
             transform: translateY(-3px);
         }
 
-        /* Nuevo estilo para los inputs del formulario */
         .form-control-custom {
             padding: 14px 20px;
             border: 2px solid #f0f0f0;
@@ -111,40 +110,84 @@
         #progress-fill {
             height: 100%;
             background: var(--color-teal);
-            width: 0%; /* Inicia en 0 para la tarjeta de registro */
+            width: 0%; 
             transition: width 0.5s ease;
         }
 
         /* --- GOTA ANIMADA CORREGIDA --- */
-        .drop-wrapper {
-            width: 100px;
+        .drop-container {
+            width: 150px;
             height: 150px;
-            margin: 20px auto;
+            margin: 50px auto 40px auto;
             position: relative;
-            border-radius: 5px 100% 50% 50% / 5px 50% 50% 100%;
-            overflow: hidden;
-            background: #e0f2f1;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border: 4px solid var(--color-teal);
         }
 
-        .water-fill {
+        /* Forma perfecta de la gota (Borde celeste y fondo oscuro) */
+        .drop-container::before {
+            content: "";
             position: absolute;
-            bottom: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150%;
-            height: 150%;
-            background: var(--color-teal);
-            border-radius: 40%;
-            transition: top 2.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-            animation: wave-rotate 4s infinite linear;
-            top: 150%;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 0 50% 50% 50%;
+            transform: rotate(45deg);
+            border: 4px solid #1e9e8f;
+            background: #062420;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            z-index: 1;
         }
 
-        @keyframes wave-rotate {
-            from { transform: translateX(-50%) rotate(0deg); }
-            to { transform: translateX(-50%) rotate(360deg); }
+        /* Máscara interna para que el agua no cubra el borde celeste */
+        .drop-shape {
+            position: absolute;
+            top: 4px; left: 4px; right: 4px; bottom: 4px;
+            border-radius: 0 50% 50% 50%;
+            transform: rotate(45deg);
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        /* Contenedor que "deshace" la rotación para que el agua suba recta */
+        .water-vertical {
+            position: absolute;
+            width: 142%; 
+            height: 142%;
+            top: -21%; 
+            left: -21%;
+            transform: rotate(-45deg);
+        }
+
+        /* Nivel base del agua que sube o baja */
+        #water-level {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: top 2.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+        }
+
+        /* Olas animadas hechas con círculos gigantes */
+        .wave {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            left: 50%;
+            margin-left: -200px;
+            top: -15px;
+            background: #1e9e8f;
+            border-radius: 40%;
+            animation: spin-wave 6s infinite linear;
+        }
+
+        .wave.wave-back {
+            background: #1c887c;
+            opacity: 0.5;
+            border-radius: 43%;
+            animation: spin-wave 4s infinite linear;
+        }
+
+        @keyframes spin-wave {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .result-value {
