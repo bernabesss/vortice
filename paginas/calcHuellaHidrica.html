@@ -352,8 +352,15 @@
                 <div class="step-card" id="step10">
                     <div class="text-center">
                         <h2 class="h4 color-vino fw-bold mb-0">Tu Huella Hídrica es:</h2>
-                        <div class="drop-wrapper">
-                            <div class="water-fill" id="water-level"></div>
+                        <div class="drop-container">
+                            <div class="drop-shape">
+                                <div class="water-vertical">
+                                    <div id="water-level">
+                                        <div class="wave wave-back"></div>
+                                        <div class="wave wave-front"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="result-value" id="finalResult">0</div>
                         <p class="text-secondary fw-bold">Litros / día</p>
@@ -409,7 +416,7 @@
             nextStep();
         }
 
-        // 2. FUNCIÓN FALTANTE: Registrar las respuestas de los botones y avanzar
+        // 2. Registrar las respuestas de los botones y avanzar
         function recordVal(val, isMultiplier = false, isLast = false) {
             if(isMultiplier) { 
                 multiplier = val; 
