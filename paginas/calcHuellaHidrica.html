@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="../css/estilos.css">
     
     <style>
-        /* --- ESTILOS ESPECÍFICOS DE LA CALCULADORA (VÓRTICE STYLE) --- */
+        /* --- ESTILOS ESPECÍFICOS DE LA CALCULADORA --- */
         .calc-wrapper {
             min-height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: #f8f9fa;
-            perspective: 1200px; /* Necesario para la rotación 3D */
+            perspective: 1200px;
             overflow: hidden;
             padding: 40px 20px;
         }
@@ -25,7 +25,7 @@
             width: 100%;
             max-width: 650px;
             position: relative;
-            min-height: 550px; /* Altura para tarjetas largas */
+            min-height: 550px;
         }
 
         /* --- SISTEMA DE TARJETAS 3D --- */
@@ -36,26 +36,26 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             position: absolute;
             width: 100%;
-            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
-            transform: translateX(120px) rotateY(-15deg); /* Estado inicial */
+            transform: translateX(120px) rotateY(-15deg);
             pointer-events: none;
             border-bottom: 8px solid var(--color-teal);
         }
 
         .step-card.active {
             opacity: 1;
-            transform: translateX(0) rotateY(0deg); /* Estado activo */
+            transform: translateX(0) rotateY(0deg);
             pointer-events: all;
             z-index: 2;
         }
 
         .step-card.exit {
             opacity: 0;
-            transform: translateX(-120px) rotateY(15deg); /* Estado de salida */
+            transform: translateX(-120px) rotateY(15deg);
         }
 
-        /* --- BOTONES DE OPCIÓN --- */
+        /* --- BOTONES Y FORMULARIOS --- */
         .option-btn {
             display: block;
             width: 100%;
@@ -76,6 +76,24 @@
             transform: translateY(-3px);
         }
 
+        /* Nuevo estilo para los inputs del formulario */
+        .form-control-custom {
+            padding: 14px 20px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            background: #fafafa;
+            color: var(--color-vino);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .form-control-custom:focus {
+            border-color: var(--color-teal);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(30, 158, 143, 0.1);
+            outline: none;
+        }
+
         /* --- BARRA DE PROGRESO --- */
         .progress-container {
             width: 100%;
@@ -93,39 +111,35 @@
         #progress-fill {
             height: 100%;
             background: var(--color-teal);
-            width: 12.5%; /* Empieza en 1/8 */
+            width: 0%; /* Inicia en 0 para la tarjeta de registro */
             transition: width 0.5s ease;
         }
 
-        /* =========================================
-           --- NUEVA GOTA ANIMADA (CORREGIDA) ---
-           ========================================= */
+        /* --- GOTA ANIMADA CORREGIDA --- */
         .drop-wrapper {
             width: 100px;
             height: 150px;
             margin: 20px auto;
             position: relative;
-            /* Máscara con forma de gota (Sin rotaciones raras) */
             border-radius: 5px 100% 50% 50% / 5px 50% 50% 100%;
             overflow: hidden;
-            background: #e0f2f1; /* Color de fondo ligero */
+            background: #e0f2f1;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             border: 4px solid var(--color-teal);
         }
 
-        /* Contenedor del líquido (Círculo perfecto) */
         .water-fill {
             position: absolute;
-            bottom: -50px; /* Empieza fuera para animación */
+            bottom: -50px;
             left: 50%;
             transform: translateX(-50%);
-            width: 150%; /* Más ancho para la onda */
-            height: 150%; /* Más alto para la onda */
+            width: 150%;
+            height: 150%;
             background: var(--color-teal);
-            border-radius: 40%; /* Crea la onda */
-            transition: top 2.5s cubic-bezier(0.17, 0.67, 0.83, 0.67); /* Animación de subida */
-            animation: wave-rotate 4s infinite linear; /* Rotación de onda */
-            top: 150%; /* Estado inicial: Gota vacía */
+            border-radius: 40%;
+            transition: top 2.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+            animation: wave-rotate 4s infinite linear;
+            top: 150%;
         }
 
         @keyframes wave-rotate {
@@ -133,7 +147,6 @@
             to { transform: translateX(-50%) rotate(360deg); }
         }
 
-        /* --- RESULTADOS --- */
         .result-value {
             font-size: 4.5rem;
             color: var(--color-teal);
@@ -179,7 +192,7 @@
     <main class="calc-wrapper">
         <div class="w-100">
             <div class="progress-container">
-                <p class="text-center fw-bold color-vino mb-2" id="step-info">Pregunta 1 de 8</p>
+                <p class="text-center fw-bold color-vino mb-2" id="step-info">Registro de Datos</p>
                 <div class="progress-bar-custom">
                     <div id="progress-fill"></div>
                 </div>
@@ -188,6 +201,47 @@
             <div class="calculator-container mx-auto">
                 
                 <div class="step-card active" id="step1">
+                    <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Bienvenido</span>
+                    <h2 class="h4 fw-bold color-vino mb-4">Antes de comenzar, cuéntanos de ti</h2>
+                    
+                    <div class="mb-3 text-start">
+                        <label class="form-label text-secondary fw-bold small mb-1">Nombre completo</label>
+                        <input type="text" id="userName" class="form-control form-control-custom" placeholder="Ingresa tu nombre" required>
+                    </div>
+                    
+                    <div class="mb-3 text-start">
+                        <label class="form-label text-secondary fw-bold small mb-1">Correo electrónico</label>
+                        <input type="email" id="userEmail" class="form-control form-control-custom" placeholder="ejemplo@correo.com" required>
+                    </div>
+                    
+                    <div class="mb-4 text-start">
+                        <label class="form-label text-secondary fw-bold small mb-1">Alcaldía / Municipio</label>
+                        <select id="userAlcaldia" class="form-select form-control-custom" required>
+                            <option value="" disabled selected>Selecciona tu alcaldía...</option>
+                            <option value="Alvaro Obregon">Álvaro Obregón</option>
+                            <option value="Azcapotzalco">Azcapotzalco</option>
+                            <option value="Benito Juarez">Benito Juárez</option>
+                            <option value="Coyoacan">Coyoacán</option>
+                            <option value="Cuajimalpa">Cuajimalpa de Morelos</option>
+                            <option value="Cuauhtemoc">Cuauhtémoc</option>
+                            <option value="Gustavo A Madero">Gustavo A. Madero</option>
+                            <option value="Iztacalco">Iztacalco</option>
+                            <option value="Iztapalapa">Iztapalapa</option>
+                            <option value="Magdalena Contreras">La Magdalena Contreras</option>
+                            <option value="Miguel Hidalgo">Miguel Hidalgo</option>
+                            <option value="Milpa Alta">Milpa Alta</option>
+                            <option value="Tlahuac">Tláhuac</option>
+                            <option value="Tlalpan">Tlalpan</option>
+                            <option value="Venustiano Carranza">Venustiano Carranza</option>
+                            <option value="Xochimilco">Xochimilco</option>
+                            <option value="Foraneo">Otro estado / municipio</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-general rounded-pill w-100" onclick="startTest()">Comenzar Test</button>
+                </div>
+
+                <div class="step-card" id="step2">
                     <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Azul</span>
                     <h2 class="h4 fw-bold color-vino mb-4">1. ¿Cuánto tiempo dura tu ducha diaria en promedio?</h2>
                     <button class="option-btn" onclick="recordVal(50)">a) Menos de 5 minutos</button>
@@ -195,7 +249,7 @@
                     <button class="option-btn" onclick="recordVal(150)">c) Más de 10 minutos</button>
                 </div>
 
-                <div class="step-card" id="step2">
+                <div class="step-card" id="step3">
                     <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Azul</span>
                     <h2 class="h4 fw-bold color-vino mb-4">2. ¿Qué tipo de inodoro tienes en casa?</h2>
                     <button class="option-btn" onclick="recordVal(30)">a) Ecológico / Doble descarga</button>
@@ -204,7 +258,7 @@
                     <button class="option-btn" onclick="recordVal(0)">d) Baño seco (sin agua)</button>
                 </div>
 
-                <div class="step-card" id="step3">
+                <div class="step-card" id="step4">
                     <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Verde / Azul</span>
                     <h2 class="h4 fw-bold color-vino mb-4">3. ¿Cuántas veces a la semana consumes carne de res?</h2>
                     <button class="option-btn" onclick="recordVal(2310)">a) Diariamente</button>
@@ -212,7 +266,7 @@
                     <button class="option-btn" onclick="recordVal(0)">c) Rara vez o vegetariano</button>
                 </div>
 
-                <div class="step-card" id="step4">
+                <div class="step-card" id="step5">
                     <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Verde</span>
                     <h2 class="h4 fw-bold color-vino mb-4">4. ¿Consumes leche o queso en tu dieta diaria?</h2>
                     <button class="option-btn" onclick="recordVal(250)">a) Sí, en casi todas mis comidas</button>
@@ -220,7 +274,7 @@
                     <button class="option-btn" onclick="recordVal(0)">c) No consumo lácteos</button>
                 </div>
 
-                <div class="step-card" id="step5">
+                <div class="step-card" id="step6">
                     <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Verde / Gris</span>
                     <h2 class="h4 fw-bold color-vino mb-4">5. ¿Cuántas tazas de café o té tomas al día?</h2>
                     <button class="option-btn" onclick="recordVal(280)">a) 2 tazas o más</button>
@@ -228,7 +282,7 @@
                     <button class="option-btn" onclick="recordVal(5)">c) Agua o jugos naturales</button>
                 </div>
 
-                <div class="step-card" id="step6">
+                <div class="step-card" id="step7">
                     <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Huella Indirecta</span>
                     <h2 class="h4 fw-bold color-vino mb-4">6. ¿Qué parte de la comida termina en la basura?</h2>
                     <button class="option-btn" onclick="recordVal(1.0, true)">a) Casi nada, aprovecho todo</button>
@@ -236,7 +290,7 @@
                     <button class="option-btn" onclick="recordVal(1.30, true)">c) Frecuentemente tiro restos</button>
                 </div>
 
-                <div class="step-card" id="step7">
+                <div class="step-card" id="step8">
                     <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Azul / Gris</span>
                     <h2 class="h4 fw-bold color-vino mb-4">7. ¿Cuántas prendas nuevas compras al mes?</h2>
                     <button class="option-btn" onclick="recordVal(83)">a) 1 o más prendas al mes</button>
@@ -244,7 +298,7 @@
                     <button class="option-btn" onclick="recordVal(2)">c) Rara vez o segunda mano</button>
                 </div>
 
-                <div class="step-card" id="step8">
+                <div class="step-card" id="step9">
                     <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Gris</span>
                     <h2 class="h4 fw-bold color-vino mb-4">8. ¿Cómo desechas el aceite usado de cocina?</h2>
                     <button class="option-btn" onclick="recordVal(0, false, true)">a) Lo reciclo en botellas</button>
@@ -252,14 +306,12 @@
                     <button class="option-btn" onclick="recordVal(0, false, true)">c) No utilizo aceite</button>
                 </div>
 
-                <div class="step-card" id="step9">
+                <div class="step-card" id="step10">
                     <div class="text-center">
                         <h2 class="h4 color-vino fw-bold mb-0">Tu Huella Hídrica es:</h2>
-                        
                         <div class="drop-wrapper">
                             <div class="water-fill" id="water-level"></div>
                         </div>
-
                         <div class="result-value" id="finalResult">0</div>
                         <p class="text-secondary fw-bold">Litros / día</p>
                         <div id="hh-message" class="small mb-3 fw-bold p-2 rounded"></div>
@@ -282,18 +334,37 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/scripts.js"></script> <script>
+    <script src="../js/scripts.js"></script>
+    
+    <script>
         let currentStep = 1;
-        const totalSteps = 9; // 8 preguntas + 1 resultado
+        const totalSteps = 10; // 1 Registro + 8 Preguntas + 1 Resultado
         let totalLitros = 0;
         let multiplier = 1.0;
 
-        // Función para registrar valores y avanzar
+        // Función para validar el registro inicial
+        function startTest() {
+            const name = document.getElementById('userName').value;
+            const email = document.getElementById('userEmail').value;
+            const alcaldia = document.getElementById('userAlcaldia').value;
+
+            if(!name || !email || !alcaldia) {
+                alert("Por favor, completa todos los campos para continuar.");
+                return;
+            }
+
+            // Aquí podrías enviar los datos a una base de datos o Google Sheets en el futuro
+            // console.log("Usuario Registrado:", name, email, alcaldia);
+
+            nextStep();
+        }
+
+        // Función para registrar valores de las preguntas
         function recordVal(val, isMultiplier = false, isLast = false) {
             if(isMultiplier) { 
-                multiplier = val; // P6 guarda el multiplicador
+                multiplier = val; 
             } else { 
-                totalLitros += val; // Las demás suman litros diarios
+                totalLitros += val; 
             }
             nextStep();
         }
@@ -302,54 +373,46 @@
         function nextStep() {
             const currentCard = document.getElementById('step' + currentStep);
             currentCard.classList.remove('active');
-            currentCard.classList.add('exit'); // Sale a la izquierda con rotación
+            currentCard.classList.add('exit');
 
             currentStep++;
             const nextCard = document.getElementById('step' + currentStep);
             
             setTimeout(() => {
-                nextCard.classList.add('active'); // Entra de la derecha
+                nextCard.classList.add('active');
                 
-                if(currentStep < totalSteps) {
-                    // Actualizar barra de progreso
-                    const progress = (currentStep / 8) * 100;
+                // Lógica de la barra de progreso
+                if(currentStep > 1 && currentStep < totalSteps) {
+                    const questionNumber = currentStep - 1; // Para que empiece en 1
+                    const progress = (questionNumber / 8) * 100;
                     document.getElementById('progress-fill').style.width = progress + '%';
-                    document.getElementById('step-info').innerText = `Pregunta ${currentStep} de 8`;
-                } else {
-                    // Final: Procesar cálculo
+                    document.getElementById('step-info').innerText = `Pregunta ${questionNumber} de 8`;
+                } else if (currentStep === totalSteps) {
                     document.getElementById('progress-fill').style.width = '100%';
                     document.getElementById('step-info').innerText = `Análisis Completado`;
                     calculateFinal();
                 }
-            }, 150); // Pequeño delay para suavidad
+            }, 150);
         }
 
         // Cálculo final y animación de gota
         function calculateFinal() {
-            // Aplicar multiplicador de desperdicio al total acumulado
             const final = Math.round(totalLitros * multiplier);
             document.getElementById('finalResult').innerText = final.toLocaleString();
 
-            // Lógica de la Gota (CORREGIDA)
-            // maxCap: 5,000L es el tope visual (Gota llena)
             const maxCap = 5000;
             let percentage = (final / maxCap) * 100;
             
-            // Limitamos entre 8% (para que no se vea vacía) y 100%
             if (percentage > 100) percentage = 100;
             if (percentage < 8) percentage = 8;
 
-            // Invertimos el porcentaje para la propiedad CSS 'top'
-            // Gota llena -> top: 0% / Gota vacía -> top: 100%
             const topValue = 100 - percentage;
 
-            // Animamos el nivel del agua después de que cargue la tarjeta
             setTimeout(() => {
                 const waterFill = document.getElementById('water-level');
                 waterFill.style.top = topValue + '%';
             }, 400);
 
-            // Mensaje Dinámico basado en promedios del IMTA
             const msg = document.getElementById('hh-message');
             if(final < 2000) {
                 msg.innerText = "¡Excelente! Tu consumo está muy por debajo del promedio nacional.";
