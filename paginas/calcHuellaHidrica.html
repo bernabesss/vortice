@@ -7,26 +7,28 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/estilos.css">
+    
     <style>
-        /* Estilos específicos para el sistema de tarjetas */
+        /* --- ESTILOS ESPECÍFICOS DE LA CALCULADORA (VÓRTICE STYLE) --- */
         .calc-wrapper {
-            min-height: 70vh;
+            min-height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: #f8f9fa;
-            perspective: 1000px;
+            perspective: 1200px; /* Necesario para la rotación 3D */
             overflow: hidden;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
         .calculator-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             position: relative;
-            min-height: 480px;
+            min-height: 550px; /* Altura para tarjetas largas */
         }
 
+        /* --- SISTEMA DE TARJETAS 3D --- */
         .step-card {
             background: white;
             border-radius: 25px;
@@ -34,49 +36,30 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             position: absolute;
             width: 100%;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
             opacity: 0;
-            transform: translateX(100px) rotateY(-10deg);
+            transform: translateX(120px) rotateY(-15deg); /* Estado inicial */
             pointer-events: none;
-            border-bottom: 6px solid var(--color-teal);
+            border-bottom: 8px solid var(--color-teal);
         }
 
         .step-card.active {
             opacity: 1;
-            transform: translateX(0) rotateY(0deg);
+            transform: translateX(0) rotateY(0deg); /* Estado activo */
             pointer-events: all;
             z-index: 2;
         }
 
         .step-card.exit {
             opacity: 0;
-            transform: translateX(-100px) rotateY(10deg);
+            transform: translateX(-120px) rotateY(15deg); /* Estado de salida */
         }
 
-        .progress-container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto 20px auto;
-        }
-
-        .progress-bar-custom {
-            height: 10px;
-            background: #e9ecef;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        #progress-fill {
-            height: 100%;
-            background: var(--color-teal);
-            width: 20%;
-            transition: width 0.4s ease;
-        }
-
+        /* --- BOTONES DE OPCIÓN --- */
         .option-btn {
             display: block;
             width: 100%;
-            padding: 18px;
+            padding: 16px 20px;
             margin-bottom: 12px;
             border: 2px solid #f0f0f0;
             border-radius: 15px;
@@ -90,15 +73,80 @@
         .option-btn:hover {
             border-color: var(--color-teal);
             background-color: #f0fdfa;
-            transform: scale(1.02);
+            transform: translateY(-3px);
         }
 
+        /* --- BARRA DE PROGRESO --- */
+        .progress-container {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto 30px auto;
+        }
+
+        .progress-bar-custom {
+            height: 12px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #progress-fill {
+            height: 100%;
+            background: var(--color-teal);
+            width: 12.5%; /* Empieza en 1/8 */
+            transition: width 0.5s ease;
+        }
+
+        /* =========================================
+           --- NUEVA GOTA ANIMADA (CORREGIDA) ---
+           ========================================= */
+        .drop-wrapper {
+            width: 100px;
+            height: 150px;
+            margin: 20px auto;
+            position: relative;
+            /* Máscara con forma de gota (Sin rotaciones raras) */
+            border-radius: 5px 100% 50% 50% / 5px 50% 50% 100%;
+            overflow: hidden;
+            background: #e0f2f1; /* Color de fondo ligero */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border: 4px solid var(--color-teal);
+        }
+
+        /* Contenedor del líquido (Círculo perfecto) */
+        .water-fill {
+            position: absolute;
+            bottom: -50px; /* Empieza fuera para animación */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%; /* Más ancho para la onda */
+            height: 150%; /* Más alto para la onda */
+            background: var(--color-teal);
+            border-radius: 40%; /* Crea la onda */
+            transition: top 2.5s cubic-bezier(0.17, 0.67, 0.83, 0.67); /* Animación de subida */
+            animation: wave-rotate 4s infinite linear; /* Rotación de onda */
+            top: 150%; /* Estado inicial: Gota vacía */
+        }
+
+        @keyframes wave-rotate {
+            from { transform: translateX(-50%) rotate(0deg); }
+            to { transform: translateX(-50%) rotate(360deg); }
+        }
+
+        /* --- RESULTADOS --- */
         .result-value {
-            font-size: 4rem;
+            font-size: 4.5rem;
             color: var(--color-teal);
             font-weight: 800;
             line-height: 1;
-            margin: 20px 0;
+            margin: 10px 0;
+        }
+
+        .badge-step {
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.7rem;
+            font-weight: 800;
         }
     </style>
 </head>
@@ -106,26 +154,17 @@
 
     <aside id="menu-accesibilidad" class="accessibility-panel">
         <div class="a11y-header">
-            <button id="btn-cerrar-a11y" class="a11y-close-btn" aria-label="Cerrar menú">&times;</button>
-            <h3 class="text-white m-0 fs-5">Menú Accesibilidad</h3>
+            <button id="btn-cerrar-a11y" class="a11y-close-btn">&times;</button>
+            <h3 class="text-white m-0 fs-5">Accesibilidad</h3>
         </div>
         <div class="a11y-content">
             <button id="a11y-reset" class="a11y-btn a11y-reset-btn"><i class="bi bi-arrow-counterclockwise"></i> Restablecer</button>
-            <button id="a11y-grayscale" class="a11y-btn"><i class="bi bi-circle-half"></i> Cambiar escala de grises</button>
-            <button id="a11y-reader" class="a11y-btn"><i class="bi bi-volume-up"></i> Usar lector de pantalla</button>
-            <button id="a11y-cursor" class="a11y-btn"><i class="bi bi-cursor-fill"></i> Cambiar tamaño de cursor</button>
-            <button id="a11y-contrast" class="a11y-btn"><i class="bi bi-brightness-high"></i> Cambiar el contraste</button>
-            <button id="a11y-mask" class="a11y-btn"><i class="bi bi-segmented-nav"></i> Máscara de lectura</button>
-            <button id="a11y-guide" class="a11y-btn"><i class="bi bi-distribute-vertical"></i> Guía de lectura</button>
-            <button id="a11y-dyslexia" class="a11y-btn"><i class="bi bi-type"></i> Tipografía para dislexia</button>
-            <div class="a11y-text-size-controls">
-                <button id="a11y-text-minus" class="a11y-btn w-50"><i class="bi bi-dash"></i> Texto</button>
-                <button id="a11y-text-plus" class="a11y-btn w-50"><i class="bi bi-plus"></i> Texto</button>
-            </div>
+            <button id="a11y-grayscale" class="a11y-btn"><i class="bi bi-circle-half"></i> Grises</button>
+            <button id="a11y-reader" class="a11y-btn"><i class="bi bi-volume-up"></i> Lector</button>
+            <button id="a11y-contrast" class="a11y-btn"><i class="bi bi-brightness-high"></i> Contraste</button>
+            <button id="a11y-dyslexia" class="a11y-btn"><i class="bi bi-type"></i> Dislexia</button>
         </div>
     </aside>
-
-    <div id="a11y-reading-guide" class="d-none"></div>
 
     <header class="main-header">
         <div class="logo-container">
@@ -133,57 +172,104 @@
         </div>
         <div class="nav-controls d-flex align-items-center gap-4">
             <button class="icon-btn accessibility-btn"><img src="../recursos/imagenes/accesibilidad.png" alt="Acc"></button>
-            <div class="menu-container position-relative">
-                <button class="icon-btn menu-toggle-btn" id="menuToggle"></button>
-                <nav class="dropdown-menu-custom">
-                    <ul class="m-0 p-3 list-unstyled">
-                        <li><a href="../index.html">Inicio</a></li>
-                        <li><a href="eventos.html">Eventos</a></li>
-                        <li><a href="ludoteca.html">Ludoteca</a></li>
-                    </ul>
-                </nav>
-            </div>
+            <button class="icon-btn menu-toggle-btn" id="menuToggle"></button>
         </div>
     </header>
 
     <main class="calc-wrapper">
         <div class="w-100">
             <div class="progress-container">
-                <p class="text-center fw-bold color-vino mb-2">Tu progreso</p>
+                <p class="text-center fw-bold color-vino mb-2" id="step-info">Pregunta 1 de 8</p>
                 <div class="progress-bar-custom">
                     <div id="progress-fill"></div>
                 </div>
             </div>
 
             <div class="calculator-container mx-auto">
+                
                 <div class="step-card active" id="step1">
-                    <span class="badge bg-teal-light text-teal mb-3 px-3">HÁBITOS DE CONSUMO</span>
-                    <h2 class="h3 fw-bold color-vino mb-4">¿Cuánto tiempo tardas en bañarte diariamente?</h2>
-                    <button class="option-btn" onclick="nextStep(1)">Menos de 5 minutos</button>
-                    <button class="option-btn" onclick="nextStep(1)">Entre 5 y 10 minutos</button>
-                    <button class="option-btn" onclick="nextStep(1)">Más de 10 minutos</button>
+                    <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Azul</span>
+                    <h2 class="h4 fw-bold color-vino mb-4">1. ¿Cuánto tiempo dura tu ducha diaria en promedio?</h2>
+                    <button class="option-btn" onclick="recordVal(50)">a) Menos de 5 minutos</button>
+                    <button class="option-btn" onclick="recordVal(100)">b) Entre 5 y 10 minutos</button>
+                    <button class="option-btn" onclick="recordVal(150)">c) Más de 10 minutos</button>
                 </div>
 
                 <div class="step-card" id="step2">
-                    <span class="badge bg-teal-light text-teal mb-3 px-3">ALIMENTACIÓN</span>
-                    <h2 class="h3 fw-bold color-vino mb-4">¿Con qué frecuencia consumes carne roja a la semana?</h2>
-                    <button class="option-btn" onclick="nextStep(2)">Diariamente</button>
-                    <button class="option-btn" onclick="nextStep(2)">2 a 3 veces por semana</button>
-                    <button class="option-btn" onclick="nextStep(2)">Soy vegetariano/vegano</button>
+                    <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Azul</span>
+                    <h2 class="h4 fw-bold color-vino mb-4">2. ¿Qué tipo de inodoro tienes en casa?</h2>
+                    <button class="option-btn" onclick="recordVal(30)">a) Ecológico / Doble descarga</button>
+                    <button class="option-btn" onclick="recordVal(55)">b) Tradicional (estándar)</button>
+                    <button class="option-btn" onclick="recordVal(80)">c) Antiguo (tanque grande)</button>
+                    <button class="option-btn" onclick="recordVal(0)">d) Baño seco (sin agua)</button>
                 </div>
 
                 <div class="step-card" id="step3">
+                    <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Verde / Azul</span>
+                    <h2 class="h4 fw-bold color-vino mb-4">3. ¿Cuántas veces a la semana consumes carne de res?</h2>
+                    <button class="option-btn" onclick="recordVal(2310)">a) Diariamente</button>
+                    <button class="option-btn" onclick="recordVal(660)">b) 2 a 3 veces por semana</button>
+                    <button class="option-btn" onclick="recordVal(0)">c) Rara vez o vegetariano</button>
+                </div>
+
+                <div class="step-card" id="step4">
+                    <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Verde</span>
+                    <h2 class="h4 fw-bold color-vino mb-4">4. ¿Consumes leche o queso en tu dieta diaria?</h2>
+                    <button class="option-btn" onclick="recordVal(250)">a) Sí, en casi todas mis comidas</button>
+                    <button class="option-btn" onclick="recordVal(100)">b) Ocasionalmente</button>
+                    <button class="option-btn" onclick="recordVal(0)">c) No consumo lácteos</button>
+                </div>
+
+                <div class="step-card" id="step5">
+                    <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Verde / Gris</span>
+                    <h2 class="h4 fw-bold color-vino mb-4">5. ¿Cuántas tazas de café o té tomas al día?</h2>
+                    <button class="option-btn" onclick="recordVal(280)">a) 2 tazas o más</button>
+                    <button class="option-btn" onclick="recordVal(140)">b) 1 taza</button>
+                    <button class="option-btn" onclick="recordVal(5)">c) Agua o jugos naturales</button>
+                </div>
+
+                <div class="step-card" id="step6">
+                    <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Huella Indirecta</span>
+                    <h2 class="h4 fw-bold color-vino mb-4">6. ¿Qué parte de la comida termina en la basura?</h2>
+                    <button class="option-btn" onclick="recordVal(1.0, true)">a) Casi nada, aprovecho todo</button>
+                    <button class="option-btn" onclick="recordVal(1.15, true)">b) Una porción pequeña semanal</button>
+                    <button class="option-btn" onclick="recordVal(1.30, true)">c) Frecuentemente tiro restos</button>
+                </div>
+
+                <div class="step-card" id="step7">
+                    <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Azul / Gris</span>
+                    <h2 class="h4 fw-bold color-vino mb-4">7. ¿Cuántas prendas nuevas compras al mes?</h2>
+                    <button class="option-btn" onclick="recordVal(83)">a) 1 o más prendas al mes</button>
+                    <button class="option-btn" onclick="recordVal(14)">b) Una vez cada 3 o 6 meses</button>
+                    <button class="option-btn" onclick="recordVal(2)">c) Rara vez o segunda mano</button>
+                </div>
+
+                <div class="step-card" id="step8">
+                    <span class="badge bg-teal-light text-teal mb-3 px-3 badge-step">Agua Gris</span>
+                    <h2 class="h4 fw-bold color-vino mb-4">8. ¿Cómo desechas el aceite usado de cocina?</h2>
+                    <button class="option-btn" onclick="recordVal(0, false, true)">a) Lo reciclo en botellas</button>
+                    <button class="option-btn" onclick="recordVal(1000, false, true)">b) Directo al fregadero</button>
+                    <button class="option-btn" onclick="recordVal(0, false, true)">c) No utilizo aceite</button>
+                </div>
+
+                <div class="step-card" id="step9">
                     <div class="text-center">
-                        <img src="../recursos/imagenes/dia-agua.png" alt="Gota" style="width: 80px;" class="mb-3">
-                        <h2 class="h4 color-vino">Tu huella hídrica es de:</h2>
-                        <div class="result-value" id="finalResult">1,840</div>
-                        <p class="text-secondary px-4">Litros de agua virtual y directa consumidos por día.</p>
+                        <h2 class="h4 color-vino fw-bold mb-0">Tu Huella Hídrica es:</h2>
+                        
+                        <div class="drop-wrapper">
+                            <div class="water-fill" id="water-level"></div>
+                        </div>
+
+                        <div class="result-value" id="finalResult">0</div>
+                        <p class="text-secondary fw-bold">Litros / día</p>
+                        <div id="hh-message" class="small mb-3 fw-bold p-2 rounded"></div>
                         <div class="mt-4 pt-3 border-top">
-                            <button class="btn-general rounded-pill w-100 mb-2" onclick="location.reload()">Repetir test</button>
-                            <a href="../index.html" class="text-teal fw-bold text-decoration-none">Regresar al Inicio</a>
+                            <button class="btn-general rounded-pill w-100 mb-2" onclick="location.reload()">Reiniciar Test</button>
+                            <a href="../index.html" class="text-teal fw-bold text-decoration-none d-block mt-2">Volver al Inicio</a>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </main>
@@ -191,30 +277,89 @@
     <footer class="bg-vino text-white py-5">
         <div class="container text-center">
             <img src="../recursos/imagenes/vortice.png" alt="Logo" style="max-height: 40px;" class="mb-3">
-            <p class="text-white-50 small">&copy; 2026 Vórtice - Plataforma de Cultura del Agua. <br> Propuesta de Calculadora de Huella Hídrica.</p>
+            <p class="text-white-50 small">&copy; 2026 Vórtice - Plataforma de Cultura del Agua. Metodología IMTA.</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/scripts.js"></script> <script>
         let currentStep = 1;
-        const totalSteps = 3;
+        const totalSteps = 9; // 8 preguntas + 1 resultado
+        let totalLitros = 0;
+        let multiplier = 1.0;
 
-        function nextStep(step) {
-            if (currentStep < totalSteps) {
-                const currentCard = document.getElementById('step' + step);
-                currentCard.classList.remove('active');
-                currentCard.classList.add('exit');
+        // Función para registrar valores y avanzar
+        function recordVal(val, isMultiplier = false, isLast = false) {
+            if(isMultiplier) { 
+                multiplier = val; // P6 guarda el multiplicador
+            } else { 
+                totalLitros += val; // Las demás suman litros diarios
+            }
+            nextStep();
+        }
 
-                currentStep++;
+        // Lógica de transición de tarjetas
+        function nextStep() {
+            const currentCard = document.getElementById('step' + currentStep);
+            currentCard.classList.remove('active');
+            currentCard.classList.add('exit'); // Sale a la izquierda con rotación
 
-                const nextCard = document.getElementById('step' + currentStep);
-                setTimeout(() => {
-                    nextCard.classList.add('active');
-                    // Actualizar barra
-                    const progress = (currentStep / totalSteps) * 100;
+            currentStep++;
+            const nextCard = document.getElementById('step' + currentStep);
+            
+            setTimeout(() => {
+                nextCard.classList.add('active'); // Entra de la derecha
+                
+                if(currentStep < totalSteps) {
+                    // Actualizar barra de progreso
+                    const progress = (currentStep / 8) * 100;
                     document.getElementById('progress-fill').style.width = progress + '%';
-                }, 150);
+                    document.getElementById('step-info').innerText = `Pregunta ${currentStep} de 8`;
+                } else {
+                    // Final: Procesar cálculo
+                    document.getElementById('progress-fill').style.width = '100%';
+                    document.getElementById('step-info').innerText = `Análisis Completado`;
+                    calculateFinal();
+                }
+            }, 150); // Pequeño delay para suavidad
+        }
+
+        // Cálculo final y animación de gota
+        function calculateFinal() {
+            // Aplicar multiplicador de desperdicio al total acumulado
+            const final = Math.round(totalLitros * multiplier);
+            document.getElementById('finalResult').innerText = final.toLocaleString();
+
+            // Lógica de la Gota (CORREGIDA)
+            // maxCap: 5,000L es el tope visual (Gota llena)
+            const maxCap = 5000;
+            let percentage = (final / maxCap) * 100;
+            
+            // Limitamos entre 8% (para que no se vea vacía) y 100%
+            if (percentage > 100) percentage = 100;
+            if (percentage < 8) percentage = 8;
+
+            // Invertimos el porcentaje para la propiedad CSS 'top'
+            // Gota llena -> top: 0% / Gota vacía -> top: 100%
+            const topValue = 100 - percentage;
+
+            // Animamos el nivel del agua después de que cargue la tarjeta
+            setTimeout(() => {
+                const waterFill = document.getElementById('water-level');
+                waterFill.style.top = topValue + '%';
+            }, 400);
+
+            // Mensaje Dinámico basado en promedios del IMTA
+            const msg = document.getElementById('hh-message');
+            if(final < 2000) {
+                msg.innerText = "¡Excelente! Tu consumo está muy por debajo del promedio nacional.";
+                msg.style.background = "#d4edda"; msg.style.color = "#155724";
+            } else if(final < 4000) {
+                msg.innerText = "Consumo moderado. Estás en el promedio nacional (aprox. 3,500L).";
+                msg.style.background = "#fff3cd"; msg.style.color = "#856404";
+            } else {
+                msg.innerText = "Tu huella es alta. ¡Revisa los tips de Vórtice para reducir tu impacto!";
+                msg.style.background = "#f8d7da"; msg.style.color = "#721c24";
             }
         }
     </script>
