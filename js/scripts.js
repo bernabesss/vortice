@@ -110,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
         readerBtn.classList.toggle('active');
         
         if(readerActive) {
-            // Hacemos enfocables los textos al encender
             document.querySelectorAll('h1, h2, h3, h4, p, span, li').forEach(el => {
                 if(!el.hasAttribute('tabindex') && el.tagName !== 'A' && el.tagName !== 'BUTTON') {
                     el.setAttribute('tabindex', '0');
@@ -119,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } else {
             speechSynth.cancel();
-            // Quitamos el foco al apagar
             document.querySelectorAll('.a11y-tabbable').forEach(el => {
                 el.removeAttribute('tabindex');
                 el.classList.remove('a11y-tabbable');
@@ -127,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Función unificada para leer texto
     const leerTexto = (elemento) => {
         if (readerActive) {
             const tagsToRead = ['H1', 'H2', 'H3', 'H4', 'P', 'SPAN', 'A', 'BUTTON', 'LI'];
@@ -141,11 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Escuchamos el ratón y la tecla Tab (focusin)
     document.addEventListener('mouseover', (e) => leerTexto(e.target));
     document.addEventListener('focusin', (e) => leerTexto(e.target));
 
-    /* --- RESTABLECER --- */
+    /* --- RESTABLECER ACCESIBILIDAD --- */
     document.getElementById('a11y-reset')?.addEventListener('click', (e) => {
         e.stopPropagation();
         document.body.classList.remove('a11y-grayscale-active', 'a11y-contrast-active', 'a11y-cursor-active', 'a11y-dyslexia-active', 'a11y-vspace-active', 'a11y-hspace-active', 'a11y-links-active');
@@ -165,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.a11y-btn').forEach(btn => btn.classList.remove('active'));
     });
 
-    /* --- LÓGICA DEL CARRUSEL --- */
+    /* --- LÓGICA DEL CARRUSEL EVENTOS PRÓXIMOS --- */
     const carouselContainer = document.getElementById('carouselContainer');
     const btnPrev = document.getElementById('btnPrev');
     const btnNext = document.getElementById('btnNext');
@@ -183,4 +179,91 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(ripple);
         setTimeout(() => ripple.remove(), 800); 
     });
-});
+
+    /* --- LÓGICA DEL CARRUSEL DE MEMORIAS --- */
+    const carouselMemorias = document.getElementById('carouselMemorias');
+    const btnPrevMem = document.getElementById('btnPrevMem');
+    const btnNextMem = document.getElementById('btnNextMem');
+
+    if(btnNextMem && carouselMemorias) {
+        btnNextMem.addEventListener('click', () => {
+            carouselMemorias.scrollBy({ left: 424, behavior: 'smooth' });
+        });
+    }
+    if(btnPrevMem && carouselMemorias) {
+        btnPrevMem.addEventListener('click', () => {
+            carouselMemorias.scrollBy({ left: -424, behavior: 'smooth' });
+        });
+    }
+
+    /* --- LÓGICA DE SLIDESHOW COLLAGE (MEMORIAS) FADE SUAVE Y ASINCRÓNICO --- */
+    const collageContainers = document.querySelectorAll('.collage-container');
+
+    collageContainers.forEach((container, containerIndex) => {
+        const imagesData = container.getAttribute('data-images');
+        if (!imagesData) return;
+        
+        let imagesList = [];
+        try {
+            imagesList = JSON.parse(imagesData);
+        } catch (e) {
+            console.error("Error al parsear data-images:", e);
+            return;
+        }
+
+        // Seleccionamos las imágenes del DOM
+        const imgElements = Array.from(container.querySelectorAll('.fade-img'));
+        
+        if(imgElements.length === 0 || imagesList.length <= imgElements.length) {
+            // Si no hay imágenes en el DOM o no hay imágenes "extra" para cambiar, salimos
+            return; 
+        }
+
+        const changeRandomImage = () => {
+            // 1. Elegir aleatoriamente qué cuadro cambiar (0, 1 o 2)
+            const boxToChangeIndex = Math.floor(Math.random() * imgElements.length);
+            const targetImgElement = imgElements[boxToChangeIndex];
+            
+            if(!targetImgElement) return;
+
+            // 2. Obtener las fuentes (src) de las imágenes que se están mostrando AHORA
+            const currentSrcs = imgElements.map(img => img.getAttribute('src'));
+
+            // 3. Buscar una nueva imagen de la lista que no se esté mostrando actualmente
+            let newSrc;
+            let attempts = 0;
+            do {
+                newSrc = imagesList[Math.floor(Math.random() * imagesList.length)];
+                attempts++;
+            } while (currentSrcs.includes(newSrc) && attempts < 15);
+
+            // Si por alguna razón (ej. pocas fotos) no encuentra una diferente, no hace nada
+            if (currentSrcs.includes(newSrc)) {
+                 const nextInterval = 3000 + Math.random() * 2000;
+                 setTimeout(changeRandomImage, nextInterval);
+                 return;
+            }
+
+            // 4. INICIA EL DESVANECIMIENTO (Fade Out)
+            targetImgElement.classList.add('fade-out');
+
+            // 5. ESPERA Y CAMBIA LA IMAGEN
+            // 800ms debe ser igual o ligeramente menor al tiempo en CSS (0.8s)
+            setTimeout(() => {
+                targetImgElement.setAttribute('src', newSrc);
+                
+                // 6. INICIA LA APARICIÓN (Fade In)
+                targetImgElement.classList.remove('fade-out'); 
+            }, 800); 
+            
+            // Programar el siguiente cambio con tiempo aleatorio (entre 3 y 5 segundos)
+            const nextInterval = 3500 + Math.random() * 2000;
+            setTimeout(changeRandomImage, nextInterval);
+        };
+
+        // Retraso inicial para que no cambien a la vez
+        const initialDelay = 1000 + (Math.random() * 2000) + (containerIndex * 500); 
+        setTimeout(changeRandomImage, initialDelay);
+    });
+
+}); // FIN DEL DOMContentLoaded
