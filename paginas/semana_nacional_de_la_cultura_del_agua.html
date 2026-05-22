@@ -12,11 +12,14 @@
     <link rel="stylesheet" href="../css/interior.css">
 
     <style>
-        /* Estilos específicos para el Hero con difuminado al scroll */
+        /* =========================================
+           HERO SECTION (Ajustes de imagen y botón)
+           ========================================= */
         .hero-blur-container {
             position: relative;
-            /* Se redujo la altura mínima para que la imagen se adapte mejor sin cortar demasiado */
-            min-height: 80vh; 
+            /* Altura fija para controlar exactamente cuánto se ve de la imagen */
+            height: 90vh; 
+            min-height: 600px;
             display: flex;
             align-items: center;
             overflow: hidden;
@@ -25,19 +28,27 @@
         
         #hero-bg-blur {
             position: absolute;
-            top: -5%; left: -5%;
-            width: 110%; height: 110%;
-            /* Ajuste fundamental: usamos 'bottom center' para priorizar la parte inferior (el lago) y recortar el texto de arriba */
-            background: url('../recursos/imagenes/SEM2.png') bottom center/cover no-repeat;
+            top: -2%; left: -2%;
+            width: 104%; height: 104%;
+            /* * LA SOLUCIÓN DEFINITIVA PARA LA IMAGEN 1920x1080:
+             * Usamos 'center left' o porcentajes para anclarla.
+             * Al usar 'center 20%', le decimos que mantenga el centro horizontal,
+             * pero la ancle al 20% desde la izquierda, forzando que el texto se vea.
+             * background-size: cover asegura que llene el div.
+             */
+            background-image: url('../recursos/imagenes/SEM2.png');
+            background-position: left center; /* Alineada a la izquierda para que no corte el texto */
+            background-size: cover;
+            background-repeat: no-repeat;
             z-index: 0;
-            transition: filter 0.1s linear;
+            transition: filter 0.1s ease-out; /* Transición más suave para el blur */
         }
 
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* El gradiente se mantiene suave para no opacar el lago, pero asegura visibilidad del botón */
-            background: linear-gradient(180deg, rgba(30, 158, 143, 0.1) 0%, rgba(94, 27, 51, 0.6) 100%);
+            /* Gradiente muy sutil solo en la parte inferior para que el botón resalte */
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(94, 27, 51, 0.7) 100%);
             z-index: 1;
         }
 
@@ -46,12 +57,31 @@
             z-index: 2;
             height: 100%;
             display: flex;
-            align-items: flex-end; /* Alinea el botón en la parte inferior */
+            align-items: flex-end; /* Lo tira hacia abajo */
             justify-content: center;
-            padding-bottom: 50px; /* Separación desde abajo */
+            padding-bottom: 30px; /* Lo bajamos más */
         }
 
-        /* Línea de tiempo (Cronograma) */
+        /* Botón del Hero */
+        .btn-hero {
+            background-color: var(--color-vino);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            font-size: 1.2rem;
+            padding: 15px 40px;
+            transition: all 0.3s ease;
+        }
+        .btn-hero:hover {
+            background-color: #4a1528;
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-3px);
+            color: white;
+        }
+
+        /* =========================================
+           CRONOGRAMA (Línea de tiempo)
+           ========================================= */
         .timeline-container {
             position: relative;
             padding-left: 2rem;
@@ -103,12 +133,55 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
 
-        /* Estilos mapa */
+        /* =========================================
+           BOTÓN DESCARGAR (Grande y notorio)
+           ========================================= */
+        .btn-descargar-grande {
+            background-color: var(--color-teal);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            padding: 20px 50px;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(30, 158, 143, 0.4);
+            border: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-descargar-grande:hover {
+            background-color: #178275;
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 25px rgba(30, 158, 143, 0.5);
+            color: white;
+        }
+        .btn-descargar-grande i {
+            font-size: 1.8rem;
+        }
+
+        /* =========================================
+           MAPA
+           ========================================= */
         .map-container {
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             border: 1px solid #e0e0e0;
+            height: 450px; /* Asegura la altura del iframe */
+        }
+        .map-container iframe {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Media query para asegurar que en celular la imagen se ancle a la izquierda */
+        @media (max-width: 768px) {
+            #hero-bg-blur {
+                background-position: left center;
+            }
         }
     </style>
 </head>
@@ -172,14 +245,20 @@
         
         <!-- HERO SECTION CON EFECTO BLUR AL SCROLL -->
         <section class="hero-blur-container">
-            <!-- Fondo que se desenfocará (Usa la imagen completa, pero el CSS 'bottom center' enfoca el lago y esconde el texto de arriba) -->
+            <!-- 
+                Fondo que se desenfocará.
+                Usamos la clase hero-bg-blur que ahora tiene background-position: left center;
+                para anclar la imagen de 1920x1080 a la izquierda y evitar que el texto se corte.
+            -->
             <div id="hero-bg-blur"></div>
-            <!-- Capa oscura para legibilidad -->
+            
+            <!-- Capa oscura para legibilidad (Sutil en la parte inferior) -->
             <div class="hero-overlay"></div>
                         
-            <div class="container hero-content w-100 pb-5">
-                <a href="#cronograma" class="btn-general d-inline-flex align-items-center rounded-pill px-5 py-3 text-decoration-none shadow-lg fs-5 hover-scale mt-auto mx-auto mb-4" style="z-index: 10;">
-                    Ver Cronograma <i class="bi bi-arrow-down-circle ms-3"></i>
+            <div class="container hero-content w-100">
+                <!-- Botón de Ver Cronograma, movido más abajo por el CSS .hero-content { padding-bottom: 30px; } -->
+                <a href="#cronograma" class="btn-hero rounded-pill text-decoration-none fw-bold shadow-lg">
+                    Ver Cronograma <i class="bi bi-arrow-down-circle ms-2"></i>
                 </a>
             </div>
         </section>
@@ -194,72 +273,54 @@
 
                 <div class="timeline-container mt-5">
                     
-                    <!-- Día 1 -->
+                    <!-- Día 1: Talleres -->
                     <div class="timeline-item">
-                        <div class="timeline-icon"><i class="bi bi-1-circle"></i></div>
+                        <div class="timeline-icon"><i class="bi bi-tools"></i></div>
                         <div class="timeline-card">
                             <div class="d-flex justify-content-between align-items-md-center flex-column flex-md-row mb-3">
                                 <div>
-                                    <span class="badge bg-teal-light text-teal mb-2">Lunes 23 de Marzo, 2026</span>
-                                    <h3 class="color-vino fw-bold m-0">Inauguración y Pláticas Magistrales</h3>
-                                </div>
-                                <div class="text-md-end mt-2 mt-md-0">
-                                    <span class="text-secondary fw-bold"><i class="bi bi-clock me-1"></i> 10:00 AM - 14:00 PM</span>
+                                    <span class="badge bg-teal-light text-teal mb-2">Día 1</span>
+                                    <h3 class="color-vino fw-bold m-0">Talleres Interactivos</h3>
                                 </div>
                             </div>
-                            <p class="text-secondary">Apertura del evento a cargo de autoridades de CONAGUA y el Archivo Histórico del Agua. Seguido de conferencias sobre la importancia de la conservación de nuestros ecosistemas acuáticos.</p>
-                            <div class="mt-3">
-                                <span class="badge bg-light text-dark border me-2"><i class="bi bi-geo-alt text-teal me-1"></i> Auditorio Principal</span>
-                            </div>
+                            <p class="text-secondary">Actividades diseñadas para toda la familia. Aprenderemos sobre huella hídrica, reutilización de aguas grises y conservación del ciclo hidrológico a través de juegos interactivos y dinámicas de construcción.</p>
                         </div>
                     </div>
 
-                    <!-- Día 2 -->
+                    <!-- Día 2: Pláticas -->
                     <div class="timeline-item">
-                        <div class="timeline-icon"><i class="bi bi-2-circle"></i></div>
+                        <div class="timeline-icon"><i class="bi bi-mic"></i></div>
                         <div class="timeline-card">
                             <div class="d-flex justify-content-between align-items-md-center flex-column flex-md-row mb-3">
                                 <div>
-                                    <span class="badge bg-teal-light text-teal mb-2">Martes 24 de Marzo, 2026</span>
-                                    <h3 class="color-vino fw-bold m-0">Talleres Interactivos y Ludoteca</h3>
-                                </div>
-                                <div class="text-md-end mt-2 mt-md-0">
-                                    <span class="text-secondary fw-bold"><i class="bi bi-clock me-1"></i> 09:00 AM - 16:00 PM</span>
+                                    <span class="badge bg-teal-light text-teal mb-2">Día 2</span>
+                                    <h3 class="color-vino fw-bold m-0">Pláticas Magistrales</h3>
                                 </div>
                             </div>
-                            <p class="text-secondary">Actividades diseñadas para toda la familia. Aprenderemos sobre huella hídrica, reutilización de aguas grises y conservación del ciclo hidrológico a través de juegos interactivos y talleres prácticos.</p>
-                            <div class="mt-3">
-                                <span class="badge bg-light text-dark border me-2"><i class="bi bi-geo-alt text-teal me-1"></i> Zona de Talleres</span>
-                                <span class="badge bg-light text-dark border"><i class="bi bi-people text-teal me-1"></i> Cupo limitado</span>
-                            </div>
+                            <p class="text-secondary">Conferencias impartidas por expertos de CONAGUA y el Archivo Histórico del Agua, enfocadas en la importancia de la conservación de nuestros ecosistemas acuáticos y los retos hídricos del siglo XXI.</p>
                         </div>
                     </div>
 
-                    <!-- Día 3 -->
+                    <!-- Día 3: Cine del Agua -->
                     <div class="timeline-item">
-                        <div class="timeline-icon"><i class="bi bi-3-circle"></i></div>
+                        <div class="timeline-icon"><i class="bi bi-film"></i></div>
                         <div class="timeline-card">
                             <div class="d-flex justify-content-between align-items-md-center flex-column flex-md-row mb-3">
                                 <div>
-                                    <span class="badge bg-teal-light text-teal mb-2">Miércoles 25 de Marzo, 2026</span>
-                                    <h3 class="color-vino fw-bold m-0">Cine del Agua y Recorridos Ecológicos</h3>
-                                </div>
-                                <div class="text-md-end mt-2 mt-md-0">
-                                    <span class="text-secondary fw-bold"><i class="bi bi-clock me-1"></i> 11:00 AM - 18:00 PM</span>
+                                    <span class="badge bg-teal-light text-teal mb-2">Día 3</span>
+                                    <h3 class="color-vino fw-bold m-0">Cine del Agua</h3>
                                 </div>
                             </div>
-                            <p class="text-secondary">Proyección de documentales ambientales enfocados en la preservación del agua en México, seguido de caminatas guiadas por el sendero principal del Parque Ecológico Lago De Texcoco.</p>
-                            <div class="mt-3">
-                                <span class="badge bg-light text-dark border me-2"><i class="bi bi-geo-alt text-teal me-1"></i> Pabellón Multimedia</span>
-                            </div>
+                            <p class="text-secondary">Proyección de documentales ambientales y cortometrajes educativos enfocados en la preservación del agua en México y el mundo, en una experiencia inmersiva para todas las edades.</p>
                         </div>
                     </div>
 
                 </div>
                 
-                <div class="text-center mt-5">
-                    <a href="../recursos/docs/programa_completo.pdf" target="_blank" class="btn-outline-teal d-inline-flex align-items-center rounded-pill px-4 py-2 text-decoration-none fw-bold hover-scale">
-                        <i class="bi bi-file-earmark-pdf fs-5 me-2"></i> Descargar Programa Completo
+                <!-- Botón de Descargar Programa (Grande y notorio) -->
+                <div class="text-center mt-5 pt-4">
+                    <a href="../recursos/docs/programa_completo.pdf" target="_blank" class="btn-descargar-grande text-decoration-none">
+                        <i class="bi bi-cloud-arrow-down-fill"></i> Descargar Programa Completo
                     </a>
                 </div>
             </div>
@@ -269,6 +330,7 @@
         <section id="ubicacion" class="py-5 bg-white border-top border-5 border-teal">
             <div class="container max-w-custom my-4">
                 <div class="row align-items-center g-5">
+                    
                     <div class="col-lg-5">
                         <span class="badge bg-vino text-white rounded-pill px-3 py-2 mb-3 tracking-wide" style="font-family: 'Noto Sans', sans-serif;">¿DÓNDE NOS VEMOS?</span>
                         <h2 class="display-5 fw-bold color-vino mb-4" style="font-family: 'patria', sans-serif;">Ubicación del Evento</h2>
@@ -280,27 +342,15 @@
                                 <p class="text-secondary mb-0">Carretera Peñón - Texcoco, Estado de México, C.P. 56200.</p>
                             </div>
                         </div>
-
-                        <div class="d-flex align-items-start mb-4">
-                            <i class="bi bi-car-front-fill text-teal fs-2 me-3"></i>
-                            <div>
-                                <h4 class="fw-bold text-dark mb-1">Indicaciones de llegada</h4>
-                                <p class="text-secondary mb-0">Contamos con estacionamiento gratuito. Si vienes en transporte público, habrá rutas especiales saliendo desde el Metro Ciudad Azteca.</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-teal-light rounded-4 p-4 mt-4 border border-teal text-center">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://maps.app.goo.gl/TEXCOCO" alt="Código QR Ubicación" class="mb-3 rounded">
-                            <p class="text-vino fw-bold mb-0">Escanea para abrir en Google Maps</p>
-                        </div>
                     </div>
                     
                     <div class="col-lg-7">
-                        <!-- Mapa Integrado (Placeholder funcional) -->
+                        <!-- Mapa Integrado -->
                         <div class="map-container w-100">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d120392.8368560506!2d-99.0494443!3d19.4996417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1e2e6c5c06be7%3A0x6b4eb547d6e6ab67!2sParque%20Ecol%C3%B3gico%20Lago%20de%20Texcoco!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4848.744748417613!2d-98.97603452381941!3d19.479245781810036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1e4f9855dcc15%3A0x3a3cd1d11cd1bde9!2sCentro%20Mexicano%20de%20Capacitaci%C3%B3n%20en%20Agua%20y%20Saneamiento%20(CEMCAS)!5e1!3m2!1ses-419!2smx!4v1779481080583!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </section>
@@ -361,8 +411,12 @@
             if(bgBlur) {
                 window.addEventListener('scroll', function() {
                     const scrollY = window.scrollY;
-                    // Calcula el nivel de blur (Máximo 15px de desenfoque a los 400px de scroll)
-                    let blurLevel = Math.min((scrollY / 400) * 15, 15);
+                    /* * AJUSTE DE DIFUMINACIÓN:
+                     * Reduje la velocidad dividiendo por 800 en lugar de 400.
+                     * El difuminado ahora requiere bajar más para verse intenso.
+                     * Máximo blur: 10px (antes 15px).
+                     */
+                    let blurLevel = Math.min((scrollY / 800) * 10, 10);
                     bgBlur.style.filter = `blur(${blurLevel}px)`;
                 });
             }
