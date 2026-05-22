@@ -17,8 +17,7 @@
            ========================================= */
         .hero-blur-container {
             position: relative;
-            /* Altura fija para controlar exactamente cuánto se ve de la imagen */
-            height: 90vh; 
+            height: 80vh; 
             min-height: 600px;
             display: flex;
             align-items: center;
@@ -30,24 +29,17 @@
             position: absolute;
             top: -2%; left: -2%;
             width: 104%; height: 104%;
-            /* * LA SOLUCIÓN DEFINITIVA PARA LA IMAGEN 1920x1080:
-             * Usamos 'center left' o porcentajes para anclarla.
-             * Al usar 'center 20%', le decimos que mantenga el centro horizontal,
-             * pero la ancle al 20% desde la izquierda, forzando que el texto se vea.
-             * background-size: cover asegura que llene el div.
-             */
             background-image: url('../recursos/imagenes/SEM2.png');
-            background-position: left center; /* Alineada a la izquierda para que no corte el texto */
+            background-position: left center;
             background-size: cover;
             background-repeat: no-repeat;
             z-index: 0;
-            transition: filter 0.1s ease-out; /* Transición más suave para el blur */
+            transition: filter 0.1s ease-out;
         }
 
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* Gradiente muy sutil solo en la parte inferior para que el botón resalte */
             background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(94, 27, 51, 0.7) 100%);
             z-index: 1;
         }
@@ -57,9 +49,9 @@
             z-index: 2;
             height: 100%;
             display: flex;
-            align-items: flex-end; /* Lo tira hacia abajo */
+            align-items: flex-end;
             justify-content: center;
-            padding-bottom: 30px; /* Lo bajamos más */
+            padding-bottom: 30px;
         }
 
         /* Botón del Hero */
@@ -80,86 +72,21 @@
         }
 
         /* =========================================
-           CRONOGRAMA (Línea de tiempo)
+           VISOR DE PDF (Reemplaza al Cronograma)
            ========================================= */
-        .timeline-container {
-            position: relative;
-            padding-left: 2rem;
-            border-left: 4px solid var(--color-teal);
-            margin-left: 1.5rem;
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-        }
-
-        .timeline-icon {
-            position: absolute;
-            left: -3.8rem;
-            top: 0;
-            width: 55px;
-            height: 55px;
-            background-color: var(--color-vino);
-            border: 4px solid white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
-        }
-
-        .timeline-card {
+        .pdf-viewer-container {
             background: white;
             border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid #f0f0f0;
-            border-bottom: 5px solid transparent;
-            transition: all 0.3s ease;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border: 1px solid #e5e5e5;
+            height: 75vh;
+            min-height: 550px;
         }
-
-        .timeline-item:hover .timeline-icon {
-            transform: scale(1.1);
-            background-color: var(--color-teal);
-        }
-
-        .timeline-item:hover .timeline-card {
-            transform: translateY(-5px);
-            border-bottom-color: var(--color-teal);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-
-        /* =========================================
-           BOTÓN DESCARGAR (Grande y notorio)
-           ========================================= */
-        .btn-descargar-grande {
-            background-color: var(--color-teal);
-            color: white;
-            font-size: 1.3rem;
-            font-weight: 800;
-            padding: 20px 50px;
-            border-radius: 50px;
-            box-shadow: 0 10px 20px rgba(30, 158, 143, 0.4);
+        .pdf-viewer-container iframe {
+            width: 100%;
+            height: 100%;
             border: none;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .btn-descargar-grande:hover {
-            background-color: #178275;
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 15px 25px rgba(30, 158, 143, 0.5);
-            color: white;
-        }
-        .btn-descargar-grande i {
-            font-size: 1.8rem;
         }
 
         /* =========================================
@@ -170,17 +97,19 @@
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             border: 1px solid #e0e0e0;
-            height: 450px; /* Asegura la altura del iframe */
+            height: 450px;
         }
         .map-container iframe {
             width: 100% !important;
             height: 100% !important;
         }
 
-        /* Media query para asegurar que en celular la imagen se ancle a la izquierda */
         @media (max-width: 768px) {
             #hero-bg-blur {
                 background-position: left center;
+            }
+            .pdf-viewer-container {
+                height: 60vh;
             }
         }
     </style>
@@ -245,83 +174,28 @@
         
         <!-- HERO SECTION CON EFECTO BLUR AL SCROLL -->
         <section class="hero-blur-container">
-            <!-- 
-                Fondo que se desenfocará.
-                Usamos la clase hero-bg-blur que ahora tiene background-position: left center;
-                para anclar la imagen de 1920x1080 a la izquierda y evitar que el texto se corte.
-            -->
             <div id="hero-bg-blur"></div>
-            
-            <!-- Capa oscura para legibilidad (Sutil en la parte inferior) -->
             <div class="hero-overlay"></div>
                         
             <div class="container hero-content w-100">
-                <!-- Botón de Ver Cronograma, movido más abajo por el CSS .hero-content { padding-bottom: 30px; } -->
-                <a href="#cronograma" class="btn-hero rounded-pill text-decoration-none fw-bold shadow-lg">
-                    Ver Cronograma <i class="bi bi-arrow-down-circle ms-2"></i>
+                <!-- Botón del Hero modificado con el texto "Programa" -->
+                <a href="#programa" class="btn-hero rounded-pill text-decoration-none fw-bold shadow-lg">
+                    Programa <i class="bi bi-arrow-down-circle ms-2"></i>
                 </a>
             </div>
         </section>
 
-        <!-- SECCIÓN DE CRONOGRAMA -->
-        <section id="cronograma" class="py-5 mt-4">
+        <!-- SECCIÓN DEL PROGRAMA (REEMPLAZA AL CRONOGRAMA) -->
+        <section id="programa" class="py-5 mt-4">
             <div class="container max-w-custom">
                 <div class="d-flex align-items-center mb-5 justify-content-center text-center">
-                    <i class="bi bi-calendar-week fs-1 text-teal me-3"></i>
-                    <h2 class="section-title m-0 display-6">Cronograma de Actividades</h2>
+                    <i class="bi bi-file-earmark-pdf fs-1 text-teal me-3"></i>
+                    <h2 class="section-title m-0 display-6">Programa Completo del Evento</h2>
                 </div>
 
-                <div class="timeline-container mt-5">
-                    
-                    <!-- Día 1: Talleres -->
-                    <div class="timeline-item">
-                        <div class="timeline-icon"><i class="bi bi-tools"></i></div>
-                        <div class="timeline-card">
-                            <div class="d-flex justify-content-between align-items-md-center flex-column flex-md-row mb-3">
-                                <div>
-                                    <span class="badge bg-teal-light text-teal mb-2">Día 1</span>
-                                    <h3 class="color-vino fw-bold m-0">Talleres Interactivos</h3>
-                                </div>
-                            </div>
-                            <p class="text-secondary">Actividades diseñadas para toda la familia. Aprenderemos sobre huella hídrica, reutilización de aguas grises y conservación del ciclo hidrológico a través de juegos interactivos y dinámicas de construcción.</p>
-                        </div>
-                    </div>
-
-                    <!-- Día 2: Pláticas -->
-                    <div class="timeline-item">
-                        <div class="timeline-icon"><i class="bi bi-mic"></i></div>
-                        <div class="timeline-card">
-                            <div class="d-flex justify-content-between align-items-md-center flex-column flex-md-row mb-3">
-                                <div>
-                                    <span class="badge bg-teal-light text-teal mb-2">Día 2</span>
-                                    <h3 class="color-vino fw-bold m-0">Pláticas Magistrales</h3>
-                                </div>
-                            </div>
-                            <p class="text-secondary">Conferencias impartidas por expertos de CONAGUA y el Archivo Histórico del Agua, enfocadas en la importancia de la conservación de nuestros ecosistemas acuáticos y los retos hídricos del siglo XXI.</p>
-                        </div>
-                    </div>
-
-                    <!-- Día 3: Cine del Agua -->
-                    <div class="timeline-item">
-                        <div class="timeline-icon"><i class="bi bi-film"></i></div>
-                        <div class="timeline-card">
-                            <div class="d-flex justify-content-between align-items-md-center flex-column flex-md-row mb-3">
-                                <div>
-                                    <span class="badge bg-teal-light text-teal mb-2">Día 3</span>
-                                    <h3 class="color-vino fw-bold m-0">Cine del Agua</h3>
-                                </div>
-                            </div>
-                            <p class="text-secondary">Proyección de documentales ambientales y cortometrajes educativos enfocados en la preservación del agua en México y el mundo, en una experiencia inmersiva para todas las edades.</p>
-                        </div>
-                    </div>
-
-                </div>
-                
-                <!-- Botón de Descargar Programa (Grande y notorio) -->
-                <div class="text-center mt-5 pt-4">
-                    <a href="../recursos/docs/programa_completo.pdf" target="_blank" class="btn-descargar-grande text-decoration-none">
-                        <i class="bi bi-cloud-arrow-down-fill"></i> Descargar Programa Completo
-                    </a>
+                <!-- Visor de PDF Integrado de forma directa -->
+                <div class="pdf-viewer-container w-100 mb-4">
+                    <iframe src="../recursos/docs/programa_completo.pdf" title="Programa de la Semana Nacional de Cultura del Agua"></iframe>
                 </div>
             </div>
         </section>
@@ -345,7 +219,7 @@
                     </div>
                     
                     <div class="col-lg-7">
-                        <!-- Mapa Integrado -->
+                        <!-- Mapa Integrado solicitado -->
                         <div class="map-container w-100">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4848.744748417613!2d-98.97603452381941!3d19.479245781810036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1e4f9855dcc15%3A0x3a3cd1d11cd1bde9!2sCentro%20Mexicano%20de%20Capacitaci%C3%B3n%20en%20Agua%20y%20Saneamiento%20(CEMCAS)!5e1!3m2!1ses-419!2smx!4v1779481080583!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
@@ -411,11 +285,6 @@
             if(bgBlur) {
                 window.addEventListener('scroll', function() {
                     const scrollY = window.scrollY;
-                    /* * AJUSTE DE DIFUMINACIÓN:
-                     * Reduje la velocidad dividiendo por 800 en lugar de 400.
-                     * El difuminado ahora requiere bajar más para verse intenso.
-                     * Máximo blur: 10px (antes 15px).
-                     */
                     let blurLevel = Math.min((scrollY / 800) * 10, 10);
                     bgBlur.style.filter = `blur(${blurLevel}px)`;
                 });
