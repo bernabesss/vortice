@@ -12,26 +12,29 @@
     <link rel="stylesheet" href="../css/interior.css">
 
     <style>
-        /* =========================================
-           HERO SECTION (Ajustes de imagen y botón)
+       /* =========================================
+           HERO SECTION (Corregido para 1920x1080)
            ========================================= */
         .hero-blur-container {
             position: relative;
-            height: 80vh; 
-            min-height: 600px;
+            width: 100%;
+            /* Obligamos al contenedor a mantener la proporción exacta de tu imagen (1920x1080) */
+            aspect-ratio: 16 / 9; 
+            /* Eliminamos height: 80vh y min-height para evitar conflictos */
             display: flex;
-            align-items: center;
+            align-items: flex-end; /* Alineamos el contenido (botón) hacia abajo */
             overflow: hidden;
             background-color: var(--color-vino);
         }
         
         #hero-bg-blur {
             position: absolute;
-            top: -2%; left: -2%;
-            width: 104%; height: 104%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-image: url('../recursos/imagenes/SEM2.png');
-            background-position: left center;
-            background-size: cover;
+            /* Centramos la imagen y nos aseguramos de que cubra el aspecto 16:9 exacto */
+            background-position: center;
+            background-size: cover; 
             background-repeat: no-repeat;
             z-index: 0;
             transition: filter 0.1s ease-out;
@@ -40,18 +43,18 @@
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(94, 27, 51, 0.7) 100%);
+            /* Oscurecemos un poco más la parte inferior para que el botón resalte */
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(94, 27, 51, 0.8) 100%);
             z-index: 1;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            height: 100%;
+            width: 100%;
             display: flex;
-            align-items: flex-end;
             justify-content: center;
-            padding-bottom: 30px;
+            padding-bottom: 50px; /* Separación del botón respecto al borde inferior */
         }
 
         /* Botón del Hero */
@@ -71,8 +74,8 @@
             color: white;
         }
 
-        /* =========================================
-           VISOR DE PDF (Reemplaza al Cronograma)
+       /* =========================================
+           VISOR DE PDF (Responsive A4 Aspect Ratio)
            ========================================= */
         .pdf-viewer-container {
             background: white;
@@ -80,43 +83,30 @@
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.08);
             border: 1px solid #e5e5e5;
-            height: 75vh;
-            min-height: 550px;
+            width: 100%;
+            /* En lugar de una altura fija, usamos aspect-ratio (formato carta/A4) */
+            aspect-ratio: 1 / 1.414; 
+            max-height: 1200px; /* Un tope máximo para pantallas muy masivas */
+            min-height: 600px;
         }
-        .pdf-viewer-container iframe {
+        
+        .pdf-viewer-container object {
             width: 100%;
             height: 100%;
             border: none;
-        }
-
-        /* =========================================
-           MAPA
-           ========================================= */
-        .map-container {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 1px solid #e0e0e0;
-            height: 450px;
-        }
-        .map-container iframe {
-            width: 100% !important;
-            height: 100% !important;
+            display: block;
         }
 
         @media (max-width: 768px) {
-            #hero-bg-blur {
-                background-position: left center;
-            }
             .pdf-viewer-container {
-                height: 60vh;
+                aspect-ratio: auto;
+                height: 80vh; 
             }
         }
     </style>
 </head>
 <body class="bg-light">
 
-    <!-- MENÚ DE ACCESIBILIDAD (Idéntico) -->
     <aside id="menu-accesibilidad" class="accessibility-panel">
         <div class="a11y-header">
             <button id="btn-cerrar-a11y" class="a11y-close-btn" aria-label="Cerrar menú">×</button>
@@ -145,7 +135,6 @@
     <div id="a11y-reading-mask-top" class="d-none"></div>
     <div id="a11y-reading-mask-bottom" class="d-none"></div>
 
-    <!-- HEADER PRINCIPAL (Idéntico) -->
     <header class="main-header" id="header-principal">
         <div class="logo-container">
             <a href="../index.html"><img src="../recursos/imagenes/vortice.png" alt="Logo Vórtice" onerror="this.src='https://via.placeholder.com/150x45?text=VORTICE'"></a>
@@ -172,35 +161,51 @@
 
     <main class="min-vh-100">
         
-        <!-- HERO SECTION CON EFECTO BLUR AL SCROLL -->
         <section class="hero-blur-container">
             <div id="hero-bg-blur"></div>
             <div class="hero-overlay"></div>
                         
             <div class="container hero-content w-100">
-                <!-- Botón del Hero modificado con el texto "Programa" -->
                 <a href="#programa" class="btn-hero rounded-pill text-decoration-none fw-bold shadow-lg">
                     Programa <i class="bi bi-arrow-down-circle ms-2"></i>
                 </a>
             </div>
         </section>
 
-        <!-- SECCIÓN DEL PROGRAMA (REEMPLAZA AL CRONOGRAMA) -->
-        <section id="programa" class="py-5 mt-4">
+        <section id="programa" class="py-5 mt-4 bg-light">
             <div class="container max-w-custom">
-                <div class="d-flex align-items-center mb-5 justify-content-center text-center">
-                    <i class="bi bi-file-earmark-pdf fs-1 text-teal me-3"></i>
-                    <h2 class="section-title m-0 display-6">Programa Completo del Evento</h2>
+                <div class="d-flex flex-column align-items-center mb-4 text-center">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-file-earmark-pdf-fill fs-1 text-teal me-3"></i>
+                        <h2 class="section-title m-0 display-6">Programa de Actividades</h2>
+                    </div>
                 </div>
 
-                <!-- Visor de PDF Integrado de forma directa -->
-                <div class="pdf-viewer-container w-100 mb-4">
-                    <iframe src="../recursos/Contenidos/PROGRAMA SNCA2026.pdf" title="Programa de la Semana Nacional de Cultura del Agua"></iframe>
+                <div class="pdf-viewer-container w-100 mb-4 shadow-sm position-relative">
+                    
+                    <object data="../recursos/Contenidos/PROGRAMA SNCA2026.pdf" type="application/pdf" width="100%" height="100%">
+                        
+                        <div class="d-flex flex-column justify-content-center align-items-center h-100 p-5 text-center bg-white">
+                            <i class="bi bi-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+                            <h4 class="mt-3 color-vino">Tu navegador no soporta la previsualización de PDFs.</h4>
+                            <p class="text-muted">No te preocupes, puedes descargar el programa completo a tu dispositivo.</p>
+                            <a href="../recursos/Contenidos/PROGRAMA SNCA2026.pdf" class="btn btn-outline-teal rounded-pill mt-2" download>
+                                <i class="bi bi-download me-2"></i>Descargar Programa
+                            </a>
+                        </div>
+                    </object>
+
                 </div>
+
+                <div class="text-center mt-4 mb-5">
+                    <a href="../recursos/Contenidos/PROGRAMA SNCA2026.pdf" class="btn-general text-decoration-none rounded-pill d-inline-flex align-items-center" download="Programa_SNCA_2026.pdf">
+                        <i class="bi bi-cloud-arrow-down-fill me-2 fs-5"></i> Descargar PDF Directamente
+                    </a>
+                </div>
+
             </div>
         </section>
 
-        <!-- SECCIÓN DE UBICACIÓN -->
         <section id="ubicacion" class="py-5 bg-white border-top border-5 border-teal">
             <div class="container max-w-custom my-4">
                 <div class="row align-items-center g-5">
@@ -219,7 +224,6 @@
                     </div>
                     
                     <div class="col-lg-7">
-                        <!-- Mapa Integrado solicitado -->
                         <div class="map-container w-100">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4848.744748417613!2d-98.97603452381941!3d19.479245781810036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1e4f9855dcc15%3A0x3a3cd1d11cd1bde9!2sCentro%20Mexicano%20de%20Capacitaci%C3%B3n%20en%20Agua%20y%20Saneamiento%20(CEMCAS)!5e1!3m2!1ses-419!2smx!4v1779481080583!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
@@ -231,7 +235,6 @@
 
     </main>
 
-    <!-- FOOTER PRINCIPAL (Idéntico) -->
     <footer class="bg-vino text-white py-5" id="footer-principal">
         <div class="container">
             <div class="row gy-4 mb-5">
@@ -277,7 +280,6 @@
     <script src="../js/scripts.js"></script>
     <script src="../js/interior.js"></script>
     
-    <!-- Script exclusivo para el efecto de difuminado (Blur) en el Hero -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const bgBlur = document.getElementById('hero-bg-blur');
