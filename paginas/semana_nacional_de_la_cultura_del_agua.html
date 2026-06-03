@@ -29,7 +29,8 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-image: url('../recursos/imagenes/SEM2.png');
+            /* CORRECCIÓN: Ruta de la imagen ajustada a la raíz según la estructura de tu proyecto */
+            background-image: url('../SEM2.png');
             background-position: center;
             background-size: cover; 
             background-repeat: no-repeat;
@@ -293,6 +294,61 @@
             </div>
         </section>
 
+        <section id="memorias-snca" class="py-5 bg-white border-top border-1">
+            <div class="container-fluid">
+                <div class="d-flex flex-column align-items-center mb-5 text-center">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-camera-reels-fill fs-1 text-teal me-3"></i>
+                        <h2 class="section-title m-0 display-6">Memorias SNCA 2026</h2>
+                    </div>
+                    <p class="text-secondary">Revive las mejores ponencias, mesas de diálogo y eventos magistrales que se han llevado a cabo.</p>
+                </div>
+
+                <div class="carousel-wrapper mx-auto position-relative">
+                    <button class="carousel-btn prev-btn shadow" id="btnPrevSNCA">‹</button>
+
+                    <div class="carousel-container align-items-center gap-4" id="carouselSNCA">
+                        
+                        <div class="memory-flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="collage-container" data-images='[
+                                        "../recursos/eventosImg/SNCA2026/img1.jpeg",
+                                        "../recursos/eventosImg/SNCA2026/img2.jpeg",
+                                        "../recursos/eventosImg/SNCA2026/img3.jpeg"
+                                    ]'>
+                                        <div class="collage-item item-main">
+                                            <img src="../recursos/eventosImg/SNCA2026/img1.jpeg" alt="Curso DCI - Imagen Principal" class="fade-img">
+                                        </div>
+                                        <div class="collage-item item-sub1">
+                                            <img src="../recursos/eventosImg/SNCA2026/img2.jpeg" alt="Curso DCI - Miniatura 1" class="fade-img">
+                                        </div>
+                                        <div class="collage-item item-sub2">
+                                            <img src="../recursos/eventosImg/SNCA2026/img3.jpeg" alt="Curso DCI - Miniatura 2" class="fade-img">
+                                        </div>
+                                        <div class="collage-label">Curso Divulgación Comunitaria Interactiva</div>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back d-flex flex-column justify-content-center align-items-center p-4">
+                                    <h3 class="fw-bold mb-3 fs-5 text-center">Curso Divulgación Comunitaria Interactiva</h3>
+                                    <p class="small text-center mb-4">Capacitar y compartir herramientas prácticas de "museografía didáctica" para diseñar, desarrollar e implementar micro-exposiciones interactivas e itinerantes.</p>
+                                    
+                                    <!-- BOTÓN DE DRIVE AÑADIDO AQUÍ -->
+                                    <a href="https://drive.google.com/drive/folders/1DF7UMxoATSTdDRHk89gZwyl9u4v6K2LM5kHVm-WFn6pw6F_GndBXI4QRBNaGAe5LUz0ezjXk?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-light rounded-pill px-4 fw-bold shadow-sm">
+                                        <i class="bi bi-folder2-open me-2 text-teal"></i>Ver en Drive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                       
+
+                    </div>
+
+                    <button class="carousel-btn next-btn shadow" id="btnNextSNCA">›</button>
+                </div>
+            </div>
+        </section>
+
         <section id="ubicacion" class="py-5 bg-white border-top border-5 border-teal">
             <div class="container max-w-custom my-4">
                 <div class="row align-items-center g-5">
@@ -462,8 +518,6 @@
         }
 
         /* INICIALIZACIÓN DE LOS 3 ARCHIVOS PDF */
-        // Asegúrate de colocar las rutas correctas a los PDFs en tus carpetas.
-        
         // 1. Programa Principal
         initPDFViewer(
             '../recursos/Contenidos/PROGRAMA_SEMANA_NACIONAL_CA_2026.pdf', 
@@ -481,6 +535,24 @@
             '../recursos/Contenidos/CROQUIS.pdf', 
             'pdf-render-3', 'page-num-3', 'page-count-3', 'prev-page-3', 'next-page-3', 'container-3'
         );
+
+        /* =========================================
+           CONTROL DE DESPLAZAMIENTO DEL CARRUSEL SNCA
+           ========================================= */
+        const carouselSNCA = document.getElementById('carouselSNCA');
+        const btnPrevSNCA = document.getElementById('btnPrevSNCA');
+        const btnNextSNCA = document.getElementById('btnNextSNCA');
+
+        if(btnNextSNCA && carouselSNCA) {
+            btnNextSNCA.addEventListener('click', () => {
+                carouselSNCA.scrollBy({ left: 424, behavior: 'smooth' }); 
+            });
+        }
+        if(btnPrevSNCA && carouselSNCA) {
+            btnPrevSNCA.addEventListener('click', () => {
+                carouselSNCA.scrollBy({ left: -424, behavior: 'smooth' });
+            });
+        }
     </script>
 </body>
 </html>
