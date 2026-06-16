@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Red Guardianes Del Agua</title> 
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -78,7 +79,7 @@
                     <h1 class="fw-bolder mb-3 display-5" style="font-family: 'patria', sans-serif;">Red Guardianes Del Agua</h1>
                     <p class="fs-5 text-white-50 mb-0" style="max-width: 600px; font-family: 'Noto Sans', sans-serif;">
                         Mantente informado sobre ferias, foros de discusión, conmemoraciones y las últimas novedades en la gestión y cuidado del agua en México.
-                        <br><br>Encuentra tu ECA mas cercano
+                        <br><br>Encuentra tu ECA más cercano.
                     </p>
                 </div>
 
@@ -92,212 +93,218 @@
 
         <div class="container">
             
-            <div class="bg-white rounded-4 p-4 shadow-sm mb-5 border-bottom border-5 border-teal">
-                <div class="row g-3 align-items-center">
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-search"></i></span>
-                            <input type="text" class="form-control border-start-0 bg-light py-2" placeholder="Buscar por nombre, lugar o fecha...">
+            <div class="bg-white rounded-4 p-4 shadow-sm mb-5 border-bottom border-5 border-teal text-center">
+                <h4 class="mb-3 color-vino fw-bold">Encuentra actividades y espacios en tu localidad</h4>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6">
+                        <div class="input-group input-group-lg shadow-sm rounded-pill overflow-hidden">
+                            <span class="input-group-text bg-light border-0 text-teal"><i class="bi bi-geo-alt-fill"></i></span>
+                            <select class="form-select border-0 bg-light text-muted cursor-pointer" aria-label="Filtrar por estado">
+                                <option selected value="todos">Todos los Estados</option>
+                                <option value="aguascalientes">Aguascalientes</option>
+                                <option value="baja_california">Baja California</option>
+                                <option value="baja_california_sur">Baja California Sur</option>
+                                <option value="campeche">Campeche</option>
+                                <option value="chiapas">Chiapas</option>
+                                <option value="chihuahua">Chihuahua</option>
+                                <option value="ciudad_de_mexico">Ciudad de México</option>
+                                <option value="coahuila">Coahuila</option>
+                                <option value="colima">Colima</option>
+                                <option value="durango">Durango</option>
+                                <option value="guanajuato">Guanajuato</option>
+                                <option value="guerrero">Guerrero</option>
+                                <option value="hidalgo">Hidalgo</option>
+                                <option value="jalisco">Jalisco</option>
+                                <option value="mexico">Estado de México</option>
+                                <option value="michoacan">Michoacán</option>
+                                <option value="morelos">Morelos</option>
+                                <option value="nayarit">Nayarit</option>
+                                <option value="nuevo_leon">Nuevo León</option>
+                                <option value="oaxaca">Oaxaca</option>
+                                <option value="puebla">Puebla</option>
+                                <option value="queretaro">Querétaro</option>
+                                <option value="quintana_roo">Quintana Roo</option>
+                                <option value="san_luis_potosi">San Luis Potosí</option>
+                                <option value="sinaloa">Sinaloa</option>
+                                <option value="sonora">Sonora</option>
+                                <option value="tabasco">Tabasco</option>
+                                <option value="tamaulipas">Tamaulipas</option>
+                                <option value="tlaxcala">Tlaxcala</option>
+                                <option value="veracruz">Veracruz</option>
+                                <option value="yucatan">Yucatán</option>
+                                <option value="zacatecas">Zacatecas</option>
+                            </select>
+                            <button class="btn-general px-4 px-md-5 border-0 rounded-pill-end" style="font-size: 1rem; border-radius: 0 50rem 50rem 0;">Buscar</button>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <select class="form-select py-2 bg-light text-muted">
-                            <option selected>Mes</option>
-                            <option value="03">Marzo</option>
-                            <option value="04">Abril</option>
-                            <option value="05">Mayo</option>
-                            <option value="06">Junio</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <select class="form-select py-2 bg-light text-muted">
-                            <option selected>Categoría</option>
-                            <option value="feria">Ferias Infantiles</option>
-                            <option value="foro">Foros y Conferencias</option>
-                            <option value="dia">Días Conmemorativos</option>
-                            <option value="noticia">Noticias Relevantes</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 text-md-end text-center">
-                         <button class="btn-general w-100 rounded-pill py-2" style="font-size: 1rem;">Filtrar</button>
                     </div>
                 </div>
             </div>
 
-
-             <div class="d-flex justify-content-between align-items-end mb-4">
+            <div class="d-flex justify-content-between align-items-end mb-4">
                 <h2 class="section-title m-0">Encuentra tu Espacio De Cultura Del Agua</h2>
             </div>
             
-            <div class="card border-0 rounded-4 shadow-sm overflow-hidden mb-5 hover-scale transition-all">
-                <div class="row g-0">
-                    <div class="col-md-5">
-                        <img src="../recursos/imagenes/dia-agua.png" class="img-fluid w-100 h-100 object-fit-cover" alt="Día Mundial del Agua" onerror="this.src='https://via.placeholder.com/600x400/1e9e8f/ffffff?text=Destacado'">
-                    </div>
-                    <div class="col-md-7 d-flex flex-column justify-content-center p-4 p-md-5 bg-white">
-                        <div class="d-flex align-items-center mb-3 gap-2">
-                            <span class="badge bg-vino text-white py-2 px-3"><i class="bi bi-star-fill me-1 text-warning"></i> Conmemoración Nacional</span>
-                            <span class="text-teal fw-bold"><i class="bi bi-calendar-event me-1"></i> 22 de Marzo, 2026</span>
-                        </div>
-                        <h3 class="fs-2 color-vino fw-bold mb-3">Día Mundial del Agua: Festival Nacional</h3>
-                        <p class="text-secondary fs-5 mb-4">Únete a la celebración más importante del año. El mundo se une para concientizar sobre la crisis hídrica global y apoyar la consecución del Objetivo de Desarrollo Sostenible (ODS) 6.</p>
-                        <div class="d-flex gap-3 mt-auto">
-                            <a href="https://www.gob.mx/cms/uploads/article/main_image/154561/Infograf_a-350X220-21-marzo.jpg" target="_blank" class="btn-general rounded-pill px-4 py-2 text-decoration-none">Ver Detalles</a>
-                            <button class="btn-outline-teal rounded-pill px-4 py-2"><i class="bi bi-share me-2"></i>Compartir</button>
-                        </div>
+            <div class="bg-white border-0 rounded-4 p-4 p-md-5 shadow-sm mb-5 text-center">
+                <p class="text-secondary fs-5 mb-4 max-w-custom mx-auto">
+                    Explora nuestro mapa interactivo para localizar los Centros y Espacios de Cultura del Agua más cercanos a tu comunidad. Da clic en tu estado para conocer las ubicaciones exactas.
+                </p>
+                <div class="bg-light rounded-4 overflow-hidden d-flex align-items-center justify-content-center position-relative shadow-sm border" style="min-height: 500px;">
+                    <img src="../recursos/imagenes/mapa-mexico.png" class="img-fluid w-100 h-100 object-fit-contain p-3" alt="Mapa interactivo de la República Mexicana" onerror="this.src='https://via.placeholder.com/1000x500/e0f2f1/1e9e8f?text=Mapa+Nacional+Interactivo'">
+                    
+                    <div class="position-absolute bottom-0 end-0 m-4 d-none d-md-block">
+                        <button class="btn-outline-teal bg-white rounded-pill px-4 py-2 shadow-sm fw-bold">
+                            <i class="bi bi-arrows-fullscreen me-2"></i>Ver pantalla completa
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <section class="py-5 bg-white" id="memorias">
-<div class="container-fluid">
-<h2 class="section-title text-center mb-4">Memorias Vórtice</h2>
+            <section class="py-5 bg-white rounded-4 shadow-sm mb-5" id="memorias">
+                <div class="container-fluid px-4">
+                    <h2 class="section-title text-center mb-4">Memorias Vórtice</h2>
 
-<div class="d-flex justify-content-center mb-5">
-    <select class="form-select w-auto shadow-sm border-teal text-teal fw-bold rounded-pill px-4 py-2" aria-label="Filtrar memorias por estado" id="filtro-estado-memorias">
-        <option selected value="todos">Todos los Estados</option>
-        <option value="aguascalientes">Aguascalientes</option>
-        <option value="baja_california">Baja California</option>
-        <option value="baja_california_sur">Baja California Sur</option>
-        <option value="campeche">Campeche</option>
-        <option value="chiapas">Chiapas</option>
-        <option value="chihuahua">Chihuahua</option>
-        <option value="ciudad_de_mexico">Ciudad de México</option>
-        <option value="coahuila">Coahuila</option>
-        <option value="colima">Colima</option>
-        <option value="durango">Durango</option>
-        <option value="guanajuato">Guanajuato</option>
-        <option value="guerrero">Guerrero</option>
-        <option value="hidalgo">Hidalgo</option>
-        <option value="jalisco">Jalisco</option>
-        <option value="mexico">Estado de México</option>
-        <option value="michoacan">Michoacán</option>
-        <option value="morelos">Morelos</option>
-        <option value="nayarit">Nayarit</option>
-        <option value="nuevo_leon">Nuevo León</option>
-        <option value="oaxaca">Oaxaca</option>
-        <option value="puebla">Puebla</option>
-        <option value="queretaro">Querétaro</option>
-        <option value="quintana_roo">Quintana Roo</option>
-        <option value="san_luis_potosi">San Luis Potosí</option>
-        <option value="sinaloa">Sinaloa</option>
-        <option value="sonora">Sonora</option>
-        <option value="tabasco">Tabasco</option>
-        <option value="tamaulipas">Tamaulipas</option>
-        <option value="tlaxcala">Tlaxcala</option>
-        <option value="veracruz">Veracruz</option>
-        <option value="yucatan">Yucatán</option>
-        <option value="zacatecas">Zacatecas</option>
-    </select>
-</div>
+                    <div class="d-flex justify-content-center mb-5">
+                        <select class="form-select w-auto shadow-sm border-teal text-teal fw-bold rounded-pill px-4 py-2" aria-label="Filtrar memorias por estado" id="filtro-estado-memorias">
+                            <option selected value="todos">Todos los Estados</option>
+                            <option value="aguascalientes">Aguascalientes</option>
+                            <option value="baja_california">Baja California</option>
+                            <option value="baja_california_sur">Baja California Sur</option>
+                            <option value="campeche">Campeche</option>
+                            <option value="chiapas">Chiapas</option>
+                            <option value="chihuahua">Chihuahua</option>
+                            <option value="ciudad_de_mexico">Ciudad de México</option>
+                            <option value="coahuila">Coahuila</option>
+                            <option value="colima">Colima</option>
+                            <option value="durango">Durango</option>
+                            <option value="guanajuato">Guanajuato</option>
+                            <option value="guerrero">Guerrero</option>
+                            <option value="hidalgo">Hidalgo</option>
+                            <option value="jalisco">Jalisco</option>
+                            <option value="mexico">Estado de México</option>
+                            <option value="michoacan">Michoacán</option>
+                            <option value="morelos">Morelos</option>
+                            <option value="nayarit">Nayarit</option>
+                            <option value="nuevo_leon">Nuevo León</option>
+                            <option value="oaxaca">Oaxaca</option>
+                            <option value="puebla">Puebla</option>
+                            <option value="queretaro">Querétaro</option>
+                            <option value="quintana_roo">Quintana Roo</option>
+                            <option value="san_luis_potosi">San Luis Potosí</option>
+                            <option value="sinaloa">Sinaloa</option>
+                            <option value="sonora">Sonora</option>
+                            <option value="tabasco">Tabasco</option>
+                            <option value="tamaulipas">Tamaulipas</option>
+                            <option value="tlaxcala">Tlaxcala</option>
+                            <option value="veracruz">Veracruz</option>
+                            <option value="yucatan">Yucatán</option>
+                            <option value="zacatecas">Zacatecas</option>
+                        </select>
+                    </div>
 
-<div class="carousel-wrapper mx-auto position-relative">
-<button class="carousel-btn prev-btn shadow" id="btnPrevMem">‹</button>
+                    <div class="carousel-wrapper mx-auto position-relative">
+                        <button class="carousel-btn prev-btn shadow" id="btnPrevMem">‹</button>
 
-<div class="carousel-container align-items-center gap-4" id="carouselMemorias">
-<div class="memory-flip-card" data-estado="ciudad_de_mexico">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<div class="collage-container" data-images='[
-"../recursos/eventosImg/4abril2026aquifera/img1.jpg",
-"../recursos/eventosImg/4abril2026aquifera/img2.jpg",
-"../recursos/eventosImg/4abril2026aquifera/img3.jpg",
-"../recursos/eventosImg/4abril2026aquifera/img4.jpg",
-"../recursos/eventosImg/4abril2026aquifera/img5.jpg"
-]'>
-<div class="collage-item item-main">
-<img src="recursos/eventosImg/4abril2026aquifera/img1.jpg" alt="Aquifera" class="fade-img">
-</div>
-<div class="collage-item item-sub1">
-<img src="recursos/eventosImg/4abril2026aquifera/img2.jpg" alt="Aquifera" class="fade-img">
-</div>
-<div class="collage-item item-sub2">
-<img src="recursos/eventosImg/4abril2026aquifera/img3.jpg" alt="Aquifera" class="fade-img">
-</div>
-<div class="collage-label">AQUIFERA 2026</div>
-</div>
-</div>
-<div class="flip-card-back d-flex flex-column justify-content-center align-items-center p-4">
-<h3 class="fw-bold mb-3">Festival AQUIFERA</h3>
-<p>El Festival del Bosque 2026 "Aqüifera" fue un encuentro cultural y ambiental en Chapultepec que utilizó el arte, la ciencia y la educación para concientizar sobre la importancia del agua. Mediante talleres, instalaciones y espectáculos gratuitos para todas las edades, el festival promovió la reflexión sobre el papel histórico del recurso hídrico y los retos actuales para su preservación.</p>
-<button class="btn btn-light text-teal rounded-pill mt-3 fw-bold px-4" data-bs-toggle="modal" data-bs-target="#modalGaleria1">Ver Galería</button>
-</div>
-</div>
-</div>
+                        <div class="carousel-container align-items-center gap-4" id="carouselMemorias">
+                            
+                            <div class="memory-flip-card" data-estado="ciudad_de_mexico">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <div class="collage-container" data-images='[
+                                            "../recursos/eventosImg/4abril2026aquifera/img1.jpg",
+                                            "../recursos/eventosImg/4abril2026aquifera/img2.jpg",
+                                            "../recursos/eventosImg/4abril2026aquifera/img3.jpg",
+                                            "../recursos/eventosImg/4abril2026aquifera/img4.jpg",
+                                            "../recursos/eventosImg/4abril2026aquifera/img5.jpg"
+                                        ]'>
+                                            <div class="collage-item item-main">
+                                                <img src="../recursos/eventosImg/4abril2026aquifera/img1.jpg" alt="Aquifera" class="fade-img">
+                                            </div>
+                                            <div class="collage-item item-sub1">
+                                                <img src="../recursos/eventosImg/4abril2026aquifera/img2.jpg" alt="Aquifera" class="fade-img">
+                                            </div>
+                                            <div class="collage-item item-sub2">
+                                                <img src="../recursos/eventosImg/4abril2026aquifera/img3.jpg" alt="Aquifera" class="fade-img">
+                                            </div>
+                                            <div class="collage-label">AQUIFERA 2026</div>
+                                        </div>
+                                    </div>
+                                    <div class="flip-card-back d-flex flex-column justify-content-center align-items-center p-4">
+                                        <h3 class="fw-bold mb-3">Festival AQUIFERA</h3>
+                                        <p>El Festival del Bosque 2026 "Aqüifera" fue un encuentro cultural y ambiental en Chapultepec que utilizó el arte, la ciencia y la educación para concientizar sobre la importancia del agua. Mediante talleres, instalaciones y espectáculos gratuitos para todas las edades.</p>
+                                        <button class="btn btn-light text-teal rounded-pill mt-3 fw-bold px-4" data-bs-toggle="modal" data-bs-target="#modalGaleria1">Ver Galería</button>
+                                    </div>
+                                </div>
+                            </div>
 
-<div class="memory-flip-card" data-estado="ciudad_de_mexico">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<div class="collage-container" data-images='[
-"../recursos/eventosImg/19marzoUNAM/img1.jpg",
-"../recursos/eventosImg/19marzoUNAM/img2.jpg",
-"../recursos/eventosImg/19marzoUNAM/img3.jpg",
-"../recursos/eventosImg/19marzoUNAM/img4.jpg",
-"../recursos/eventosImg/19marzoUNAM/img5.jpg",
-"../recursos/eventosImg/19marzoUNAM/img6.jpg"
-]'>
-<div class="collage-item item-main">
-<img src="recursos/eventosImg/19marzoUNAM/img1.jpg" alt="UNAM" class="fade-img">
-</div>
-<div class="collage-item item-sub1">
-<img src="recursos/eventosImg/19marzoUNAM/img2.jpg" alt="UNAM" class="fade-img">
-</div>
-<div class="collage-item item-sub2">
-<img src="recursos/eventosImg/19marzoUNAM/img3.jpg" alt="UNAM" class="fade-img">
-</div>
-<div class="collage-label">Festival del Agua UNAM 2026</div>
-</div>
-</div>
-<div class="flip-card-back d-flex flex-column justify-content-center align-items-center p-4">
-<h3 class="fw-bold mb-3">Festival del Agua UNAM 2026</h3>
-<p>evento realizado por la Universidad Nacional Autónoma de México donde se llevo a cabo demostraciones del Archivo Historico y Juegos accesibles de Cultura del agua a la comunidad estudiantil </p>
-<button class="btn btn-light text-teal rounded-pill mt-3 fw-bold px-4" data-bs-toggle="modal" data-bs-target="#modalGaleria2">Ver Galería</button>
-</div>
-</div>
-</div>
+                            <div class="memory-flip-card" data-estado="ciudad_de_mexico">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <div class="collage-container" data-images='[
+                                            "../recursos/eventosImg/19marzoUNAM/img1.jpg",
+                                            "../recursos/eventosImg/19marzoUNAM/img2.jpg",
+                                            "../recursos/eventosImg/19marzoUNAM/img3.jpg",
+                                            "../recursos/eventosImg/19marzoUNAM/img4.jpg",
+                                            "../recursos/eventosImg/19marzoUNAM/img5.jpg",
+                                            "../recursos/eventosImg/19marzoUNAM/img6.jpg"
+                                        ]'>
+                                            <div class="collage-item item-main">
+                                                <img src="../recursos/eventosImg/19marzoUNAM/img1.jpg" alt="UNAM" class="fade-img">
+                                            </div>
+                                            <div class="collage-item item-sub1">
+                                                <img src="../recursos/eventosImg/19marzoUNAM/img2.jpg" alt="UNAM" class="fade-img">
+                                            </div>
+                                            <div class="collage-item item-sub2">
+                                                <img src="../recursos/eventosImg/19marzoUNAM/img3.jpg" alt="UNAM" class="fade-img">
+                                            </div>
+                                            <div class="collage-label">Festival del Agua UNAM</div>
+                                        </div>
+                                    </div>
+                                    <div class="flip-card-back d-flex flex-column justify-content-center align-items-center p-4">
+                                        <h3 class="fw-bold mb-3 text-center">Festival del Agua UNAM 2026</h3>
+                                        <p class="text-center">Evento realizado por la Universidad Nacional Autónoma de México donde se llevó a cabo demostraciones del Archivo Histórico y Juegos accesibles de Cultura del agua a la comunidad estudiantil.</p>
+                                        <button class="btn btn-light text-teal rounded-pill mt-3 fw-bold px-4" data-bs-toggle="modal" data-bs-target="#modalGaleria2">Ver Galería</button>
+                                    </div>
+                                </div>
+                            </div>
 
-<div class="memory-flip-card" data-estado="mexico">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<div class="collage-container" data-images='[
-"../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG1.jpeg",
-"../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG2.jpeg",
-"../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG3.jpeg",
-"../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG4.jpeg",
-"../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG5.jpeg"
-]'>
-<div class="collage-item item-main">
-<img src="../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG1.jpeg" alt="Dia Mundial" class="fade-img">
-</div>
-<div class="collage-item item-sub1">
-<img src="../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG2.jpeg" alt="Dia Mundial" class="fade-img">
-</div>
-<div class="collage-item item-sub2">
-<img src="../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG3.jpeg" alt="Dia Mundial" class="fade-img">
-</div>
-<div class="collage-label">Día Mundial del Agua</div>
-</div>
-</div>
-<div class="flip-card-back d-flex flex-column justify-content-center align-items-center p-4">
-<h3 class="fw-bold mb-3">Día Mundial del Agua</h3>
-<p>El pasado 22 de marzo, la Coordinación General de Comunicación y Cultura del Agua conmemoró el Día Nacional del Agua en el Parque Ecológico Lago de Texcoco. El evento ofreció una jornada de talleres, pláticas y experiencias interactivas diseñadas bajo un enfoque inclusivo para promover la cultura del agua.</p>
-<button class="btn btn-light text-teal rounded-pill mt-3 fw-bold px-4" data-bs-toggle="modal" data-bs-target="#modalGaleria3">Ver Galería</button>
-</div>
-</div>
-</div>
+                            <div class="memory-flip-card" data-estado="mexico">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <div class="collage-container" data-images='[
+                                            "../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG1.jpeg",
+                                            "../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG2.jpeg",
+                                            "../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG3.jpeg",
+                                            "../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG4.jpeg",
+                                            "../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG5.jpeg"
+                                        ]'>
+                                            <div class="collage-item item-main">
+                                                <img src="../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG1.jpeg" alt="Dia Mundial" class="fade-img">
+                                            </div>
+                                            <div class="collage-item item-sub1">
+                                                <img src="../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG2.jpeg" alt="Dia Mundial" class="fade-img">
+                                            </div>
+                                            <div class="collage-item item-sub2">
+                                                <img src="../recursos/eventosImg/22marzo2026diaMundialDelAgua/IMG3.jpeg" alt="Dia Mundial" class="fade-img">
+                                            </div>
+                                            <div class="collage-label">Día Mundial del Agua</div>
+                                        </div>
+                                    </div>
+                                    <div class="flip-card-back d-flex flex-column justify-content-center align-items-center p-4">
+                                        <h3 class="fw-bold mb-3 text-center">Día Mundial del Agua</h3>
+                                        <p class="text-center">El pasado 22 de marzo, la Coordinación General de Comunicación y Cultura del Agua conmemoró el Día Nacional del Agua en el Parque Ecológico Lago de Texcoco. El evento ofreció una jornada de talleres.</p>
+                                        <button class="btn btn-light text-teal rounded-pill mt-3 fw-bold px-4" data-bs-toggle="modal" data-bs-target="#modalGaleria3">Ver Galería</button>
+                                    </div>
+                                </div>
+                            </div>
 
-</div>
+                        </div>
 
-<button class="carousel-btn next-btn shadow" id="btnNextMem">›</button>
-</div>
-</div>
-</section>
+                        <button class="carousel-btn next-btn shadow" id="btnNextMem">›</button>
+                    </div>
+                </div>
+            </section>
            
-
-
-
-
-            <div class="d-flex justify-content-between align-items-end mb-4">
+            <div class="d-flex justify-content-between align-items-end mb-4 mt-5">
                 <h2 class="section-title m-0">Agenda Próxima</h2>
                 <span class="text-teal fw-bold d-none d-md-block"><i class="bi bi-list-ul me-2"></i>Ver Lista Completa</span>
             </div>
